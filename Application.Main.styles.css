@@ -24,10 +24,19 @@
 .nav-menu[b-u7dajq6sjn]{
     padding: 10px
 }
-/* /Pages/Home/Sections/Skills.razor.rz.scp.css */
-.card-skill[b-xh96ff4fob] {
-    min-height: 200px;
-    padding-top: 30px;
-    padding: 20px;
-    max-width: 200px;
+/* /Pages/Home/Home.razor.rz.scp.css */
+.section[b-er2jzuo51i] {
+    padding: 80px 16px;
+}
+
+.full-height[b-er2jzuo51i] {
+    height: 100vh;
+}
+
+.bg-grey-light[b-er2jzuo51i] {
+    background-color: #f5f5f5;
+}
+
+.bg-grey-lighter[b-er2jzuo51i] {
+    background-color: #fafafa;
 }
