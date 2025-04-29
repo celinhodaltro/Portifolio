@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Entities", "Sources\Core\Core.Entities\Core.Entities.csproj", "{3D03FDD1-579B-40F3-AF17-4F4E77E3113B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Main", "Sources\Application\Application.Main\Application.Main.csproj", "{4AE33060-38DF-428A-8DA8-57C452B248BF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3D03FDD1-579B-40F3-AF17-4F4E77E3113B} = {3D03FDD1-579B-40F3-AF17-4F4E77E3113B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
