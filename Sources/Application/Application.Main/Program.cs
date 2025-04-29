@@ -17,5 +17,4 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseElement) });
 
 
-builder.Services.AddMudServices();
 await builder.Build().RunAsync();
