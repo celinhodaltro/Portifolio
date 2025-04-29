@@ -1,4 +1,3 @@
-# .github/workflows/deploy-blazor.yml
 name: Deploy Blazor WebAssembly to GitHub Pages
 
 on:
@@ -19,26 +18,20 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x'  # Ajuste conforme necessário
+        dotnet-version: '9.0.x'
 
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Build project
-      run: dotnet publish -c Release -o build
+    - name: Publish Blazor project
+      run: dotnet publish -c Release -o release
 
-    - name: Copy files to temp
-      run: |
-        mkdir temp
-        cp -r build/wwwroot/* temp/
-
-    - name: Update <base href> in index.html for GitHub Pages
-      run: |
-        sed -i 's|<base href=".*" />|<base href="/Portifolio/" />|' temp/index.html
+    - name: Change base href in index.html
+      run: sed -i 's|<base href="/" />|<base href="/Portifolio/" />|' release/wwwroot/index.html
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./temp
-
+        publish_branch: gh-pages
+        publish_dir: ./release/wwwroot
