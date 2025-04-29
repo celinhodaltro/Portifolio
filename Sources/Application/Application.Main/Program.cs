@@ -8,7 +8,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 var baseElement = builder.HostEnvironment.BaseAddress;
 #if !DEBUG
-    baseElement = "https://celinhodaltro.github.io/Portifolio/";
+baseElement = "https://celinhodaltro.github.io/Portifolio/";
 #endif
 builder.Services.AddMudServices();
 builder.RootComponents.Add<App>("#app");
