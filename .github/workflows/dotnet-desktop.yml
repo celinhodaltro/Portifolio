@@ -4,7 +4,7 @@ name: Deploy Blazor WebAssembly to GitHub Pages
 on:
   push:
     branches:
-      - main  # ou a branch que você usa como principal
+      - main
 
 permissions:
   contents: write
@@ -19,7 +19,7 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x' # ou a versão que seu projeto usa
+        dotnet-version: '9.0.x'  # Ajuste conforme necessário
 
     - name: Restore dependencies
       run: dotnet restore
@@ -27,10 +27,14 @@ jobs:
     - name: Build project
       run: dotnet publish -c Release -o build
 
-    - name: Copy files
+    - name: Copy files to temp
       run: |
         mkdir temp
         cp -r build/wwwroot/* temp/
+
+    - name: Update <base href> in index.html for GitHub Pages
+      run: |
+        sed -i 's|<base href=".*" />|<base href="/Portifolio/" />|' temp/index.html
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
