@@ -1,36 +1,70 @@
-﻿  <MudPaper Class="menu" Elevation="4">
-        <MudStack Spacing="2">
-            <MudCard Class="menu-card" @onclick="@(() => NavigateTo("formacao"))">
-                <MudCardContent>
-                    <MudIcon Icon="School" Size="Size.Large" />
-                    <MudText Typo="Typo.h6">Formação Acadêmica</MudText>
-                </MudCardContent>
-            </MudCard>
+﻿@inject NavigationManager Navigation
 
-            <MudCard Class="menu-card" @onclick="@(() => NavigateTo("experiencias"))">
-                <MudCardContent>
-                    <MudIcon Icon="Work" Size="Size.Large" />
-                    <MudText Typo="Typo.h6">Experiências</MudText>
-                </MudCardContent>
-            </MudCard>
 
-            <MudCard Class="menu-card" @onclick="@(() => NavigateTo("cursos"))">
-                <MudCardContent>
-                    <MudIcon Icon="LibraryBooks" Size="Size.Large" />
-                    <MudText Typo="Typo.h6">Cursos</MudText>
-                </MudCardContent>
-            </MudCard>
 
-            <!-- Adicione outros cards aqui -->
-        </MudStack>
-    </MudPaper>
+<MudFab StartIcon="@menuIcon"
+        Color="Color.Dark"
+        Size="Size.Large"
+        IconColor="@menuColor"
+        Class="floating-menu-button"
+        @onclick="ToggleMenu" />
+
+
+
+<MudDrawer @bind-Open="@isOpen" Width="15%" OverlayAutoClose="true" Variant="@DrawerVariant.Temporary" Anchor="Anchor.Right" Elevation="1">
+    <MudDrawerHeader>
+        <MudText Typo="Typo.h6">My App</MudText>
+    </MudDrawerHeader>
+    <div class="nav-menu">
+        <MudNavMenu>
+            <MudGrid Spacing="2">
+                <MudItem xs="6">
+                    <MudPaper Height="140px" Width="140px" @onclick="@(() => NavigateTo("formacao"))">
+                        <MudIcon Icon="@Icons.Material.Filled.School" Size="Size.Large" />
+                        <MudText Typo="Typo.h6">Experiencias</MudText>
+                    </MudPaper>
+                </MudItem>
+                <MudItem xs="6">
+                    <MudPaper Height="140px" Width="140px" @onclick="@(() => NavigateTo("experiencias"))">
+                        <MudIcon Icon="@Icons.Material.Filled.School" Size="Size.Large" />
+                        <MudText Typo="Typo.h6">Formação Acadêmica</MudText>
+                    </MudPaper>
+                </MudItem>
+                <MudItem xs="6">
+                    <MudPaper Height="140px" Width="140px" @onclick="@(() => NavigateTo("cursos"))">
+                        <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Size="Size.Large" />
+                        <MudText Typo="Typo.h6">Cursos</MudText>
+                    </MudPaper>
+                </MudItem>
+            </MudGrid>
+        </MudNavMenu>
+    </div>
+
+</MudDrawer>
+
+
 
 
 @code {
-    [Inject] private NavigationManager Navigation { get; set; }
+
+    private bool isOpen = false;
+
+    private string menuIcon => isOpen ? Icons.Material.Filled.Close : Icons.Material.Filled.Menu;
+    private Color menuColor => isOpen ? Color.Error : Color.Primary;
+
+    private void ToggleMenu()
+    {
+        isOpen = !isOpen;
+    }
 
     private void NavigateTo(string section)
     {
         Navigation.NavigateTo($"#{section}");
+        isOpen = false; // Fecha o menu após clicar
+    }
+
+    private string GetMenuStyle()
+    {
+        return isOpen ? "position:fixed;bottom:100px;right:20px;z-index:1000;" : "display:none;";
     }
 }

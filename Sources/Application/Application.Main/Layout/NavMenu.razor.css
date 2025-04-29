@@ -1,17 +1,14 @@
-
-.menu {
-    width: 300px;
-    padding: 1rem;
-    background-color: #121212; /* Um preto elegante */
-    color: white;
+.floating-menu-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1100;
 }
 
-.menu-card {
-    cursor: pointer;
-    text-align: center;
-    padding: 1rem;
+.floating-menu-panel {
+    width: 250px;
 }
 
-    .menu-card:hover {
-        background-color: #1e1e1e;
-    }
+.nav-menu{
+    padding: 20px
+}

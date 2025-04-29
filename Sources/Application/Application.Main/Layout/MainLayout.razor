@@ -6,18 +6,22 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-@code {
-    private bool IsHome => Navigation.Uri.EndsWith("/") || Navigation.Uri.Contains("/home");
-}
+<NavMenu/>
 @if (IsHome)
 {
     @Body
 }
 else
 {
+
     <MudContainer Class="layout-container">
         <MudMainContent Class="main-content">
             @Body
         </MudMainContent>
     </MudContainer>
+}
+
+
+@code {
+    private bool IsHome => Navigation.Uri.EndsWith("/") || Navigation.Uri.Contains("/home");
 }
