@@ -2,17 +2,31 @@
 @using Application.Main.Pages.Home.Sections;
 
 
+<MudContainer MaxWidth="MaxWidth.False" Class="px-0">
+    <section class="section full-height bg-primary text-white d-flex align-center justify-center">
+        <MudText Typo="Typo.h3" Align="Align.Center">Bem-vindo ao meu Portfólio</MudText>
+    </section>
 
-<MudCarousel Class="mud-width-full" Style="height:40vh;" ShowArrows="true"  AutoCycle="true" TData="object">
-    <MudCarouselItem Transition="Transition.Slide">
-        <div class="d-flex" style="height:100%">
-            <Skills />
-        </div>
-    </MudCarouselItem>
-    <MudCarouselItem Transition="Transition.Slide">
-        <div class="d-flex" style="height:100%">
-            <Bio/>
-        </div>
-    </MudCarouselItem>
-</MudCarousel>
+    <section class="section bg-grey-light">
+        <MudContainer>
+            <MainCarousel></MainCarousel>
+        </MudContainer>
+    </section>
+
+    <section class="section bg-grey-lighter">
+        <MudContainer>
+            <Contact />
+        </MudContainer>
+    </section>
+
+    <section class="section bg-white">
+        <MudContainer>
+            <RequestService />
+        </MudContainer>
+    </section>
+
+</MudContainer>
+
+
+
 
