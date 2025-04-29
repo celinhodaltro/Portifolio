@@ -5,7 +5,7 @@
         @foreach (var item in cards)
         {
             <MudItem xs="12" sm="6" md="3">
-                <MudPaper Elevation="2" style="min-height:200px; padding:20px; max-width:200" class="fixed-card p-6 text-center hover-elevation-8 transition">
+                <MudPaper Elevation="2" class="card-skill p-6 text-center hover-elevation-8 transition">
                     <MudIcon Icon="@item.Icon" Size="Size.Large" Color="Color.Primary" />
                     <MudText Typo="Typo.h6" Class="mt-2 font-bold">@item.Title</MudText>
                     <MudText Typo="Typo.body2">@item.Description</MudText>
@@ -19,8 +19,8 @@
 {
     private List<(string Icon, string Title, string Description)> cards = new()
     {
-        (Icons.Material.Filled.Storage , "Backend", "Aprenda tudo sobre desenvolvimento de software, orientação a objetos e arquitetura."),
-        (Icons.Material.Filled.Computer, "Frontend", "Blazor e Angular"),
+        (Icons.Material.Filled.Storage , "Back-end", ".NET"),
+        (Icons.Material.Filled.Computer, "Front-end", "Blazor e Angular"),
         (Icons.Material.Filled.Storage , "Database", "Oracle, Postgree, Microsoft SQL Server, MySql"),
         (Icons.Material.Filled.AddCircle, "More", "Versionamento de codigo, CI/CD"),
 

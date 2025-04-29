@@ -1,19 +1,23 @@
 ﻿@inherits LayoutComponentBase
-@* Required *@
+@inject NavigationManager Navigation
+
 <MudThemeProvider />
 <MudPopoverProvider />
-
-@* Needed for dialogs *@
 <MudDialogProvider />
-
-@* Needed for snackbars *@
 <MudSnackbarProvider />
 
-<MudContainer Class="layout-container">
-    <MudMainContent Class="main-content">
-        @Body
-    </MudMainContent>
-    @*<NavMenu />*@
-
-
-</MudContainer>
+@code {
+    private bool IsHome => Navigation.Uri.EndsWith("/") || Navigation.Uri.Contains("/home");
+}
+@if (IsHome)
+{
+    @Body
+}
+else
+{
+    <MudContainer Class="layout-container">
+        <MudMainContent Class="main-content">
+            @Body
+        </MudMainContent>
+    </MudContainer>
+}
