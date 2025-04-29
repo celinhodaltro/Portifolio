@@ -1,7 +1,5 @@
 ﻿@inject NavigationManager Navigation
 
-
-
 <MudFab StartIcon="@menuIcon"
         Color="Color.Dark"
         Size="Size.Large"
@@ -9,62 +7,70 @@
         Class="floating-menu-button"
         @onclick="ToggleMenu" />
 
-
-
-<MudDrawer @bind-Open="@isOpen" Width="15%" OverlayAutoClose="true" Variant="@DrawerVariant.Temporary" Anchor="Anchor.Right" Elevation="1">
-    <MudDrawerHeader>
-        <MudText Typo="Typo.h6">My App</MudText>
+<MudDrawer @bind-Open="@isOpen"
+           Width="250px"
+           OverlayAutoClose="true"
+           Variant="@DrawerVariant.Temporary"
+           Anchor="Anchor.Right"
+           Elevation="1">
+    <MudDrawerHeader Class="text-center">
+        <MudText Typo="Typo.h6" Class="mb-2" Align="Align.Center">Menu</MudText>
     </MudDrawerHeader>
-    <div class="nav-menu">
-        <MudNavMenu>
-            <MudGrid Spacing="2">
-                <MudItem xs="6">
-                    <MudPaper Height="140px" Width="140px" @onclick="@(() => NavigateTo("formacao"))">
-                        <MudIcon Icon="@Icons.Material.Filled.School" Size="Size.Large" />
-                        <MudText Typo="Typo.h6">Experiencias</MudText>
-                    </MudPaper>
-                </MudItem>
-                <MudItem xs="6">
-                    <MudPaper Height="140px" Width="140px" @onclick="@(() => NavigateTo("experiencias"))">
-                        <MudIcon Icon="@Icons.Material.Filled.School" Size="Size.Large" />
-                        <MudText Typo="Typo.h6">Formação Acadêmica</MudText>
-                    </MudPaper>
-                </MudItem>
-                <MudItem xs="6">
-                    <MudPaper Height="140px" Width="140px" @onclick="@(() => NavigateTo("cursos"))">
-                        <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Size="Size.Large" />
-                        <MudText Typo="Typo.h6">Cursos</MudText>
-                    </MudPaper>
-                </MudItem>
-            </MudGrid>
-        </MudNavMenu>
-    </div>
 
+    <MudNavMenu Class="pa-2">
+        <MudGrid Gutter="Size.Small">
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
+                          Style="min-height: 130px;"
+                          @onclick="@(() => NavigateTo("formacao"))">
+                    <MudIcon Icon="@Icons.Material.Filled.School" Size="Size.Large" />
+                    <MudText Typo="Typo.subtitle1" Align="Align.Center">Experiências</MudText>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
+                          Style="min-height: 130px;"
+                          @onclick="@(() => NavigateTo("experiencias"))">
+                    <MudIcon Icon="@Icons.Material.Filled.School" Size="Size.Large" />
+                    <MudText Typo="Typo.subtitle1" Align="Align.Center">Formação</MudText>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
+                          Style="min-height: 130px;"
+                          @onclick="@(() => NavigateTo("cursos"))">
+                    <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Size="Size.Large" />
+                    <MudText Typo="Typo.subtitle1" Align="Align.Center">Cursos</MudText>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </MudNavMenu>
 </MudDrawer>
 
 
 
+<style>
+    .floating-menu-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1100;
+    }
+</style>
 
 @code {
-
     private bool isOpen = false;
 
     private string menuIcon => isOpen ? Icons.Material.Filled.Close : Icons.Material.Filled.Menu;
     private Color menuColor => isOpen ? Color.Error : Color.Primary;
 
-    private void ToggleMenu()
-    {
-        isOpen = !isOpen;
-    }
+    private void ToggleMenu() => isOpen = !isOpen;
 
     private void NavigateTo(string section)
     {
         Navigation.NavigateTo($"#{section}");
-        isOpen = false; // Fecha o menu após clicar
-    }
-
-    private string GetMenuStyle()
-    {
-        return isOpen ? "position:fixed;bottom:100px;right:20px;z-index:1000;" : "display:none;";
+        isOpen = false;
     }
 }
