@@ -1,0 +1,29 @@
+﻿@page "/"
+
+<MudContainer MaxWidth="MaxWidth.False" Class="py-10">
+    <MudText Typo="Typo.h3" Align="Align.Center" Color="Color.Primary">Minhas habilidades</MudText>
+
+    <MudGrid Class="mt-6" GutterSize="3">
+        @foreach (var item in cards)
+        {
+            <MudItem xs="12" sm="6" md="3">
+                <MudPaper Elevation="2" Class="p-6 text-center hover-elevation-8 transition">
+                    <MudIcon Icon="item.Icon" Size="Size.Large" Color="Color.Primary" />
+                    <MudText Typo="Typo.h6" Class="mt-2 font-bold">@item.Title</MudText>
+                    <MudText Typo="Typo.body2">@item.Description</MudText>
+                </MudPaper>
+            </MudItem>
+        }
+    </MudGrid>
+</MudContainer>ste
+
+@code 
+{
+    private List<(string Icon, string Title, string Description)> cards = new()
+    {
+        (Icons.Material.Filled.Storage, "Backend", "Aprenda tudo sobre desenvolvimento de software, orientação a objetos e arquitetura."),
+        (Icons.Material.Filled.Smartphone, "Mobile", "Aprenda sobre desenvolvimento de aplicativos nativos para Android e iOS."),
+        (Icons.Material.Filled.Computer, "Frontend", "Aprenda sobre HTML, CSS, JavaScript e frameworks modernos."),
+        (Icons.Material.Filled.HelpCenter, "Precisa de Ajuda?", "Está começando agora ou ainda com dúvidas? Podemos te orientar."),
+    };
+}
