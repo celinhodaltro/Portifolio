@@ -10,23 +10,20 @@
     background-color: white;
 }
 /* /Layout/NavMenu.razor.rz.scp.css */
-
-.menu[b-u7dajq6sjn] {
-    width: 300px;
-    padding: 1rem;
-    background-color: #121212; /* Um preto elegante */
-    color: white;
+.floating-menu-button[b-u7dajq6sjn] {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1100;
 }
 
-.menu-card[b-u7dajq6sjn] {
-    cursor: pointer;
-    text-align: center;
-    padding: 1rem;
+.floating-menu-panel[b-u7dajq6sjn] {
+    width: 250px;
 }
 
-    .menu-card:hover[b-u7dajq6sjn] {
-        background-color: #1e1e1e;
-    }
+.nav-menu[b-u7dajq6sjn]{
+    padding: 20px
+}
 /* /Pages/Home/Sections/Skills.razor.rz.scp.css */
 .card-skill[b-xh96ff4fob] {
     min-height: 200px;
