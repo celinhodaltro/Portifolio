@@ -6,25 +6,23 @@
 <MudContainer MaxWidth="MaxWidth.Medium">
     <MudText Typo="Typo.h5" Class="mb-4">Gráficos de Habilidades</MudText>
 
-    <MudPaper Class="pa-4">
-        <MudGrid>
-            @foreach (var skill in Skills)
-            {
-                <MudItem xs="12" sm="6" md="4">
-                    <MudCard>
-                        <MudCardContent Class="d-flex flex-column align-center">
-                            <MudText Typo="Typo.h6">@skill.Name</MudText>
-                            <MudProgressCircular  Value="@skill.Level"   Color="Color.Dark" Size="Size.Medium" Thickness="5">
-                                <div style="font-size: 1rem;">@skill.Level%</div>
-                            </MudProgressCircular>
-                            <MudText Typo="Typo.body2">@skill.Level%</MudText>
-                        </MudCardContent>
-                    </MudCard>
-                </MudItem>
-            }
-        </MudGrid>
+    <MudGrid>
+        @foreach (var skill in Skills)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <MudCard>
+                    <MudCardContent Class="d-flex flex-column align-center">
+                        <MudText Typo="Typo.h6">@skill.Name</MudText>
+                        <MudProgressCircular Value="@skill.Level" Color="Color.Dark" Size="Size.Medium" Thickness="5">
+                            <div style="font-size: 1rem;">@skill.Level%</div>
+                        </MudProgressCircular>
+                        <MudText Typo="Typo.body2">@skill.Level%</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
 
-    </MudPaper>
 </MudContainer>
 
 @code {
