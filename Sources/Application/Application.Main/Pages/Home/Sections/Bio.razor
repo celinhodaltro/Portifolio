@@ -1,15 +1,22 @@
 ﻿<MudContainer Class="py-10">
-    <MudGrid>
-        <MudItem xs="12" md="4">
-            <MudPaper Elevation="1" Class="p-4">
-                <MudAvatar Size="Size.Large" Src="minha-foto.jpg" />
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" md="8">
-            <MudText Typo="Typo.h5" Class="font-bold">João Marcelo</MudText>
-            <MudText Typo="Typo.body1" Class="mt-2">
-                Developer Fullstack .NET
-            </MudText>
-        </MudItem>
-    </MudGrid>
+    <MudPaper style="background-color:rgba(0, 0, 0, 0.3)" Elevation="1" Class="p-4">
+        <MudGrid>
+
+            <MudItem xs="12" md="1">
+
+                <MudAvatar Style="height:120px; width:90px; font-size:2rem;" Size="Size.Large">
+                    <MudImage Src="img/avatar/avatar-su-style.png"></MudImage>
+                </MudAvatar>
+
+            </MudItem>
+            <MudItem xs="12" Style="padding-left:40px;" md="11">
+                <MudText Typo="Typo.h5" Class="font-bold">João Marcelo</MudText>
+                <MudDivider />
+                <MudText Typo="Typo.body1" Class="mt-2">
+                    Developer Fullstack .NET
+                </MudText>
+            </MudItem>
+
+        </MudGrid>
+    </MudPaper>
 </MudContainer>
