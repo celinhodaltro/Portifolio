@@ -1,5 +1,6 @@
 ﻿@inject NavigationManager Navigation
 
+
 <MudFab StartIcon="@menuIcon"
         Color="Color.Dark"
         Size="Size.Large"
@@ -9,6 +10,8 @@
 
 <MudDrawer @bind-Open="@isOpen"
            Width="250px"
+           Height="100%"
+           Fixed="true" 
            OverlayAutoClose="true"
            Variant="@DrawerVariant.Temporary"
            Anchor="Anchor.Right"
@@ -21,9 +24,9 @@
         <MudGrid Gutter="Size.Small">
             <MudItem xs="12" sm="6">
                 <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
-                          Style="min-height: 130px;"
+                          Style="min-height: 120px;"
                           @onclick="@(() => NavigateTo("formacao"))">
-                    <MudIcon Icon="@Icons.Material.Filled.School" Size="Size.Large" />
+                    <MudIcon Icon="@Icons.Material.Filled.Work" Size="Size.Large" />
                     <MudText Typo="Typo.subtitle1" Align="Align.Center">Experiências</MudText>
                 </MudPaper>
             </MudItem>
@@ -37,6 +40,7 @@
                 </MudPaper>
             </MudItem>
 
+            <!-- Item de navegação 3 -->
             <MudItem xs="12" sm="6">
                 <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
                           Style="min-height: 130px;"
@@ -49,14 +53,18 @@
     </MudNavMenu>
 </MudDrawer>
 
-
-
 <style>
     .floating-menu-button {
         position: fixed;
         bottom: 20px;
         right: 20px;
         z-index: 1100;
+    }
+
+    .mud-drawer {
+        position: fixed !important;
+        top: 0;
+        right: 0;
     }
 </style>
 

@@ -1,0 +1,57 @@
+﻿@page "/skills"
+@using MudBlazor
+
+<PageTitle>Habilidades</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <MudText Typo="Typo.h5" Class="mb-4">Gráficos de Habilidades</MudText>
+
+    <MudPaper Class="pa-4">
+        <MudGrid>
+            @foreach (var skill in Skills)
+            {
+                <MudItem xs="12" sm="6" md="4">
+                    <MudCard>
+                        <MudCardContent Class="d-flex flex-column align-center">
+                            <MudText Typo="Typo.h6">@skill.Name</MudText>
+                            <MudProgressCircular  Value="@skill.Level"   Color="Color.Dark" Size="Size.Medium" Thickness="5">
+                                <div style="font-size: 1rem;">@skill.Level%</div>
+                            </MudProgressCircular>
+                            <MudText Typo="Typo.body2">@skill.Level%</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private string _newSkillName = string.Empty;
+    private int _newSkillLevel = 50;
+
+    public class Skill
+    {
+        public string Name { get; set; } = string.Empty;
+        public int Level { get; set; } = 0;
+    }
+
+    private List<Skill> Skills = new()
+    {
+        new Skill { Name = ".NET", Level = 85 },
+        new Skill { Name = "JavaScript", Level = 40 },
+        new Skill { Name = "Blazor", Level = 75 },
+        new Skill { Name = "Blazor", Level = 75 }
+    };
+
+    private void AddSkill()
+    {
+        if (!string.IsNullOrWhiteSpace(_newSkillName))
+        {
+            Skills.Add(new Skill { Name = _newSkillName, Level = _newSkillLevel });
+            _newSkillName = string.Empty;
+            _newSkillLevel = 50;
+        }
+    }
+}
