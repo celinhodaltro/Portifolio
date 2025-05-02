@@ -1,63 +1,50 @@
-﻿@inject NavigationManager Navigation
+﻿@using Application.Main.Pages.Home.Sections
+@inject NavigationManager Navigation
 
 
 <MudFab StartIcon="@menuIcon"
         Color="Color.Dark"
-        Size="Size.Large"
+        Size="Size.Medium"
         IconColor="@menuColor"
         Class="floating-menu-button"
         @onclick="ToggleMenu" />
 
+
+<MudFab StartIcon="@Icons.Material.Filled.ContactPhone"
+        Class="floating-contact-button"
+        Size="Size.Medium"
+        Color="Color.Dark"
+        IconColor="Color.Primary"
+        OnClick="OpenContatoPopup" />
+
+
 <MudDrawer @bind-Open="@isOpen"
            Width="250px"
            Height="100%"
-           Fixed="true" 
+           Fixed="true"
            OverlayAutoClose="true"
            Variant="@DrawerVariant.Temporary"
            Anchor="Anchor.Right"
            Elevation="1">
-    <MudDrawerHeader Class="text-center">
-        <MudText Typo="Typo.h6" Class="mb-2" Align="Align.Center">Menu</MudText>
+    <MudDrawerHeader>
+        <MudText  Typo="Typo.h6" Class="mb-2" Align="Align.Center">Menu</MudText>
     </MudDrawerHeader>
 
     <MudNavMenu Class="pa-2">
         <MudGrid Gutter="Size.Small">
-            <MudItem xs="12" sm="6">
-                <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
-                          Style="min-height: 120px;"
-                          @onclick="@(() => NavigateTo("school"))">
-                    <MudIcon Icon="@Icons.Material.Filled.Work" Size="Size.Large" />
-                    <MudText Typo="Typo.subtitle1" Align="Align.Center">Experiências</MudText>
-                </MudPaper>
-            </MudItem>
-
-            <MudItem xs="12" sm="6">
-                <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
-                          Style="min-height: 130px;"
-                          @onclick="@(() => NavigateTo("experience"))">
-                    <MudIcon Icon="@Icons.Material.Filled.School" Size="Size.Large" />
-                    <MudText Typo="Typo.subtitle1" Align="Align.Center">Formação</MudText>
-                </MudPaper>
-            </MudItem>
-
-            <MudItem xs="12" sm="6">
-                <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
-                          Style="min-height: 130px;"
-                          @onclick="@(() => NavigateTo("courses"))">
-                    <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Size="Size.Large" />
-                    <MudText Typo="Typo.subtitle1" Align="Align.Center">Cursos</MudText>
-                </MudPaper>
-            </MudItem>
-
-            <MudItem xs="12" sm="6">
-                <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
-                          Style="min-height: 130px;"
-                          @onclick="@(() => NavigateTo("projects"))">
-                    <MudIcon Icon="@Icons.Material.Filled.SettingsSystemDaydream" Size="Size.Large" />
-                    <MudText Typo="Typo.subtitle1" Align="Align.Center">Projetos</MudText>
-                </MudPaper>
-            </MudItem>
+            @foreach (var item in MenuItems)
+            {
+                <MudItem xs="12" sm="6">
+                    <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
+                              Style="min-height: 120px; max-height:120px; background-color:#2B323D"
+                              @onclick="@(() => NavigateTo(item.Route))">
+                        <MudIcon Icon="@item.Icon" Size="Size.Large" Color="Color.Primary" />
+                        <MudText Class="text-white" Typo="Typo.subtitle1" Align="Align.Center">@item.Label</MudText>
+                    </MudPaper>
+                </MudItem>
+            }
         </MudGrid>
+
     </MudNavMenu>
 </MudDrawer>
 
@@ -66,6 +53,13 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
+        z-index: 1100;
+    }
+
+    .floating-contact-button {
+        position: fixed;
+        bottom: 20px;
+        right: 80px;
         z-index: 1100;
     }
 
@@ -84,9 +78,29 @@
 
     private void ToggleMenu() => isOpen = !isOpen;
 
+    [Inject]
+    private IDialogService dialogService { get; set; }
+
     private void NavigateTo(string section)
     {
         Navigation.NavigateTo($"/{section}");
         isOpen = false;
+    }
+
+    private List<MenuItem> MenuItems = new()
+    {
+        new(Icons.Material.Filled.Work, "Experiências", "school"),
+        new(Icons.Material.Filled.School, "Formação", "experience"),
+        new(Icons.Material.Filled.LibraryBooks, "Cursos", "courses"),
+        new(Icons.Material.Filled.SettingsSystemDaydream, "Projetos", "projects")
+    };
+
+    private record MenuItem(string Icon, string Label, string Route);
+
+    private async Task OpenContatoPopup()
+    {
+        var parameters = new DialogParameters();
+        var options = new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true };
+        await dialogService.ShowAsync<Contact>("Contato", parameters, options);
     }
 }
