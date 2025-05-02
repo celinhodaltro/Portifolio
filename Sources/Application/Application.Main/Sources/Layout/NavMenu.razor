@@ -30,7 +30,7 @@
 
 
 <MudDrawer @bind-Open="@isOpen"
-           Width="250px"
+           Width="400px"
            Height="100%"
            Fixed="true"
            OverlayAutoClose="true"
@@ -41,7 +41,7 @@
         <MudText Typo="Typo.h6" Class="mb-2" Align="Align.Center">Menu</MudText>
     </MudDrawerHeader>
 
-    <MudNavMenu Class="pa-2">
+    <MudNavMenu Class="pa-2" >
         <MudGrid Gutter="Size.Small">
             @foreach (var item in MenuItems)
             {
