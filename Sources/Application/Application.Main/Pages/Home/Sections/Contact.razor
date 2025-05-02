@@ -1,5 +1,41 @@
-﻿<h3>Contato</h3>
+﻿<MudPaper Elevation="0" Class="bg-transparent pa-6 mt-12 mx-auto max-w-screen-md rounded-xl">
+    <MudText Typo="Typo.h4" GutterBottom="true" Align="Align.Center">Entre em Contato</MudText>
+    <MudText Typo="Typo.subtitle1" Align="Align.Center">
+        Fique à vontade para entrar em contato para serviços, colaborações ou networking.
+    </MudText>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6 justify-items-center">
+        <MudGrid Gutter="Size.Small">
+            <MudItem xs="4" sm="4">
+                @PaperContato(Icons.Custom.Brands.GitHub, "GitHub", "https://github.com/celinhoDaltro", Color.Default)
+            </MudItem>
+            <MudItem xs="4" sm="4">
+                @PaperContato(Icons.Custom.Brands.WhatsApp, "Solicitar Serviços", "https://wa.me/5571992834507?text=Ol%C3%A1%2C+gostaria+de+solicitar+seus+servi%C3%A7os", Color.Success)
+            </MudItem>
+            <MudItem xs="4" sm="4">
+                @PaperContato(Icons.Custom.Brands.LinkedIn, "LinkedIn", "https://www.linkedin.com/in/joaomarcelomarques/", Color.Info)
+            </MudItem>
+        </MudGrid>
+    </div>
+</MudPaper>
 
 @code {
+    void OpenUrl(string url)
+    {
+        var jsRuntime = (IJSRuntime)ServiceProvider.GetService(typeof(IJSRuntime));
+        jsRuntime?.InvokeVoidAsync("open", url, "_blank");
+    }
 
+    RenderFragment PaperContato(string icon, string title, string url, Color color) => @<MudPaper Class="p-4 rounded-lg shadow-md bg-white/80 w-full max-w-xs cursor-pointer transition duration-300 hover:shadow-xl"
+                                                                                                      @onclick="() => OpenUrl(url)">
+        <MudCard Elevation="0" Class="bg-transparent">
+            <MudCardContent Class="flex flex-col items-center text-center py-6">
+                <MudIcon Icon="@icon" Size="Size.Large" Color="@color" />
+                <MudText Class="mt-2" Typo="Typo.subtitle1">@title</MudText>
+            </MudCardContent>
+        </MudCard>
+    </MudPaper>;
+
+    [Inject]
+    IServiceProvider ServiceProvider { get; set; }
 }
