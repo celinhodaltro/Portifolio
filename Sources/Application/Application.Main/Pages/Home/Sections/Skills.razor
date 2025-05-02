@@ -1,34 +1,43 @@
-﻿<MudContainer MaxWidth="MaxWidth.False" Style="color:white">
+﻿
+<MudText Typo="Typo.h5" Class="mb-2 d-flex align-items-center gap-2 text-white">
+    <MudIcon Icon="@Icons.Material.Outlined.Category" Color="Color.Primary" />
+    Skills
+</MudText>
+<MudDivider Class="mb-4" />
 
-    <MudText Typo="Typo.h5" Class="mb-4"><MudIcon Icon="@Icons.Material.Outlined.Category"/> Skills:</MudText>
-    <MudDivider/>
-    <MudGrid GutterSize="3" Justify="Justify.Center">
-        @foreach (var item in cards)
-        {
-            <MudItem xs="12" sm="6" md="3" lg="2">
-                <MudPaper style="background-color:rgba(0, 0, 0, 0.3); color:white" Outlined="true" Elevation="2" Class="card-skill text-center hover-elevation-8 transition">
-                    <MudIcon Icon="@item.Icon" Size="Size.Large" />
-                    <MudText Typo="Typo.h6" Class="mt-2 font-bold">@item.Title</MudText>
-                    <MudText Typo="Typo.body2">@item.Description</MudText>
-                </MudPaper>
-            </MudItem>
-        }
-    </MudGrid>
-    <MudDivider />
-</MudContainer>
+<MudGrid GutterSize="3">
+    @foreach (var item in cards)
+    {
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Elevation="3"
+                      Class="card-skill hover-elevation-8 transition rounded-xl text-center"
+                      Style="background-color:rgba(0, 0, 0, 0.3);; color:white;">
+
+                <MudIcon Icon="@item.Icon" Size="Size.Large" Color="Color.Primary" />
+                <MudText Typo="Typo.h6" Class="mt-2 font-semibold">@item.Title</MudText>
+                <MudText Typo="Typo.body2" Class="text-secondary">@item.Description</MudText>
+            </MudPaper>
+        </MudItem>
+    }
+</MudGrid>
 
 <style>
     .card-skill {
         padding: 20px;
-        min-height: 180px;
+        height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        height: 100%;
-        box-sizing: border-box;
+        justify-content: center;
+        transition: transform 0.2s ease;
     }
+
+        .card-skill:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
 </style>
+
 
 
 @code
