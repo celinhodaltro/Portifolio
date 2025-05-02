@@ -1,27 +1,33 @@
-﻿    <MudPaper Elevation="0" Class="bg-transparent pa-6 mt-12 mx-auto max-w-screen-md rounded-xl text-white">
-        <MudText Typo="Typo.h5" Align="Align.Left" Class="font-bold mb-1">
-        <MudIcon Icon="@Icons.Material.Outlined.Contacts" Color="Color.Primary" />
-            Contato
-        </MudText>
+﻿<MudDialog style="background-color:white; text-align:center" >
+    <DialogContent>
         <MudDivider Class="my-2" />
         <MudText Typo="Typo.subtitle1" Align="Align.Left">
             Fique à vontade para entrar em contato para serviços, colaborações ou networking.
         </MudText>
-
-        <MudGrid Class="mt-6" GutterSize="3" Justify="Justify.Center">
-            <MudItem xs="12" sm="6" md="4">
-                @ContatoCard(Icons.Custom.Brands.GitHub, "GitHub", "https://github.com/celinhoDaltro", Color.Default)
+        <MudDivider Class="my-2" />
+        <MudGrid Justify="Justify.Center">
+            <MudItem xs="6">
+                @ContatoCard(Icons.Custom.Brands.GitHub, "GitHub", "https://github.com/celinhoDaltro", Color.Primary)
             </MudItem>
-            <MudItem xs="12" sm="6" md="4">
+            <MudItem xs="6">
                 @ContatoCard(Icons.Custom.Brands.WhatsApp, "WhatsApp", "https://wa.me/5571992834507?text=Ol%C3%A1%2C+gostaria+de+solicitar+seus+servi%C3%A7os", Color.Success)
             </MudItem>
-            <MudItem xs="12" sm="6" md="4">
+            <MudItem xs="6">
                 @ContatoCard(Icons.Custom.Brands.LinkedIn, "LinkedIn", "https://www.linkedin.com/in/joaomarcelomarques/", Color.Info)
             </MudItem>
+            <MudItem xs="6">
+                @ContatoCard(Icons.Material.Filled.Email, "E-mail", "mailto:MarceloDaltroMarques@gmail.com?subject=Contato%20Profissional", Color.Warning)
+            </MudItem>
         </MudGrid>
-    </MudPaper>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="() => MudDialog.Close()" Color="Color.Primary">Fechar</MudButton>
+    </DialogActions>
+</MudDialog>
 
 @code {
+    [CascadingParameter] IMudDialogInstance MudDialog { get; set; }
+
     [Inject] IServiceProvider ServiceProvider { get; set; }
 
     void OpenUrl(string url)
@@ -30,10 +36,9 @@
         jsRuntime?.InvokeVoidAsync("open", url, "_blank");
     }
 
-    RenderFragment ContatoCard(string icon, string title, string url, Color color) => @<MudPaper Class="p-4 rounded-xl cursor-pointer transition duration-300 hover:shadow-lg"
-                                                                                                     Style="background-color:rgba(0, 0, 0, 0.3);; color:white;"
+    RenderFragment ContatoCard(string icon, string title, string url, Color color) => @<MudPaper Class="p-3 rounded-xl cursor-pointer transition duration-300 hover:shadow-lg"
+                                                                                                     Style="background-color:#2B323D;  color:white;"
                                                                                                      @onclick="() => OpenUrl(url)">
-
         <MudCard Elevation="0" Style="background-color:transparent;">
             <MudCardContent Class="d-flex flex-column align-center text-center py-4">
                 <MudIcon Icon="@icon" Size="Size.Large" Color="@color" />
