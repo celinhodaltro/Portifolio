@@ -1,40 +1,49 @@
-﻿@using Application.Main.Pages.Home.Sections
+﻿@using Application.Main.Sources.Components.Dialogs
 @inject NavigationManager Navigation
 
 
 <MudFab StartIcon="@menuIcon"
-        Color="Color.Dark"
-        Size="Size.Medium"
-        IconColor="@menuColor"
-        Class="floating-menu-button"
-        @onclick="ToggleMenu" />
+Color="Color.Dark"
+Size="Size.Medium"
+IconColor="@menuColor"
+Class="floating-menu-button"
+@onclick="ToggleMenu" />
 
 
 <MudFab StartIcon="@Icons.Material.Filled.ContactPhone"
-        Class="floating-contact-button"
-        Size="Size.Medium"
-        Color="Color.Dark"
-        IconColor="Color.Primary"
-        OnClick="OpenContatoPopup" />
+Class="floating-contact-button"
+Size="Size.Medium"
+Color="Color.Dark"
+IconColor="Color.Primary"
+OnClick="OpenContatoPopup" />
 
 
-<MudFab StartIcon="@Icons.Material.Filled.Download"
-        Class="floating-cv-button"
-        Size="Size.Medium"
-        Color="Color.Dark"
-        IconColor="Color.Primary"
-        OnClick="DownloadCurriculo" />
+<MudFab StartIcon="@Icons.Material.Filled.Download" 
+Class="floating-cv-button"
+Size="Size.Medium"
+Color="Color.Dark"
+Label="Reactor Shutdown"
+IconColor="Color.Primary"
+OnClick="DownloadCurriculo">
+
+
+    <MudPopover OverflowBehavior="OverflowBehavior.FlipNever"  Open="true"  AnchorOrigin="Origin.TopRight" TransformOrigin="Origin.TopRight" Class="pa-4">
+        <MudText Typo="Typo.body2" Class="px-4 py-1">Baixe o meu curriculo!</MudText>
+    </MudPopover>
+
+
+</MudFab>
 
 
 
 <MudDrawer @bind-Open="@isOpen"
-           Width="250px"
-           Height="100%"
-           Fixed="true"
-           OverlayAutoClose="true"
-           Variant="@DrawerVariant.Temporary"
-           Anchor="Anchor.Right"
-           Elevation="1">
+Width="250px"
+Height="100%"
+Fixed="true"
+OverlayAutoClose="true"
+Variant="@DrawerVariant.Temporary"
+Anchor="Anchor.Right"
+Elevation="1">
     <MudDrawerHeader>
         <MudText  Typo="Typo.h6" Class="mb-2" Align="Align.Center">Menu</MudText>
     </MudDrawerHeader>
@@ -45,8 +54,8 @@
             {
                 <MudItem xs="12" sm="6">
                     <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
-                              Style="min-height: 120px; max-height:120px; background-color:#2B323D"
-                              @onclick="@(() => NavigateTo(item.Route))">
+                    Style="min-height: 120px; max-height:120px; background-color:#2B323D"
+                    @onclick="@(() => NavigateTo(item.Route))">
                         <MudIcon Icon="@item.Icon" Size="Size.Large" Color="Color.Primary" />
                         <MudText Class="text-white" Typo="Typo.subtitle1" Align="Align.Center">@item.Label</MudText>
                     </MudPaper>
@@ -59,30 +68,30 @@
 
 <style>
     .floating-menu-button {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1100;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1100;
     }
 
     .floating-contact-button {
-        position: fixed;
-        bottom: 20px;
-        right: 80px;
-        z-index: 1100;
+    position: fixed;
+    bottom: 20px;
+    right: 80px;
+    z-index: 1100;
     }
 
     .mud-drawer {
-        position: fixed !important;
-        top: 0;
-        right: 0;
+    position: fixed !important;
+    top: 0;
+    right: 0;
     }
 
     .floating-cv-button {
-        position: fixed;
-        bottom: 20px;
-        right: 140px;
-        z-index: 1100;
+    position: fixed;
+    bottom: 20px;
+    right: 140px;
+    z-index: 1100;
     }
 </style>
 
@@ -91,11 +100,13 @@
 
     private string menuIcon => isOpen ? Icons.Material.Filled.Close : Icons.Material.Filled.Menu;
     private Color menuColor => isOpen ? Color.Error : Color.Primary;
-
+    private record MenuItem(string Icon, string Label, string Route);
     private void ToggleMenu() => isOpen = !isOpen;
 
     [Inject]
     private IDialogService dialogService { get; set; }
+    [Inject]
+    private ISnackbar snackbar { get; set; }
 
     private void NavigateTo(string section)
     {
@@ -111,7 +122,7 @@
         new(Icons.Material.Filled.SettingsSystemDaydream, "Projetos", "projects")
     };
 
-    private record MenuItem(string Icon, string Label, string Route);
+
 
     private async Task OpenContatoPopup()
     {
@@ -123,5 +134,6 @@
     private void DownloadCurriculo()
     {
         Navigation.NavigateTo("/docs/curriculo/Curriculo - João Marcelo Daltro Marques.pdf", true);
+        snackbar.Add("Temperature is still going up!", Severity.Success);
     }
 }
