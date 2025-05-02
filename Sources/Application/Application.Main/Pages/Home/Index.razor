@@ -1,0 +1,49 @@
+﻿@page "/"
+@using Application.Main.Pages.Home.Sections
+
+<MudContainer MaxWidth="MaxWidth.False" Class="px-0 font-sans">
+
+    <!-- Bio Section -->
+    <section class="section full-height text-white d-flex align-center justify-center">
+        <Bio />
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="section py-16" style="height:45vh">
+        <MudContainer Class="text-center">
+            <Skills/>
+        </MudContainer>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section py-20">
+        <MudContainer Class="text-center">
+            <Contact />
+        </MudContainer>
+    </section>
+
+</MudContainer>
+
+<style>
+
+    .font-sans {
+        font-family: 'Segoe UI', 'Roboto', sans-serif;
+    }
+
+    .section {
+        padding: 2rem 1rem;
+    }
+
+    .shadow-inner {
+        box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .transition {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .hover-scale:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+</style>

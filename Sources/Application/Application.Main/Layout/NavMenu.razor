@@ -25,7 +25,7 @@
             <MudItem xs="12" sm="6">
                 <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
                           Style="min-height: 120px;"
-                          @onclick="@(() => NavigateTo("formacao"))">
+                          @onclick="@(() => NavigateTo("school"))">
                     <MudIcon Icon="@Icons.Material.Filled.Work" Size="Size.Large" />
                     <MudText Typo="Typo.subtitle1" Align="Align.Center">Experiências</MudText>
                 </MudPaper>
@@ -34,19 +34,27 @@
             <MudItem xs="12" sm="6">
                 <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
                           Style="min-height: 130px;"
-                          @onclick="@(() => NavigateTo("experiencias"))">
+                          @onclick="@(() => NavigateTo("experience"))">
                     <MudIcon Icon="@Icons.Material.Filled.School" Size="Size.Large" />
                     <MudText Typo="Typo.subtitle1" Align="Align.Center">Formação</MudText>
                 </MudPaper>
             </MudItem>
 
-            <!-- Item de navegação 3 -->
             <MudItem xs="12" sm="6">
                 <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
                           Style="min-height: 130px;"
-                          @onclick="@(() => NavigateTo("cursos"))">
+                          @onclick="@(() => NavigateTo("courses"))">
                     <MudIcon Icon="@Icons.Material.Filled.LibraryBooks" Size="Size.Large" />
                     <MudText Typo="Typo.subtitle1" Align="Align.Center">Cursos</MudText>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
+                          Style="min-height: 130px;"
+                          @onclick="@(() => NavigateTo("projects"))">
+                    <MudIcon Icon="@Icons.Material.Filled.SettingsSystemDaydream" Size="Size.Large" />
+                    <MudText Typo="Typo.subtitle1" Align="Align.Center">Projetos</MudText>
                 </MudPaper>
             </MudItem>
         </MudGrid>
@@ -78,7 +86,7 @@
 
     private void NavigateTo(string section)
     {
-        Navigation.NavigateTo($"#{section}");
+        Navigation.NavigateTo($"/{section}");
         isOpen = false;
     }
 }

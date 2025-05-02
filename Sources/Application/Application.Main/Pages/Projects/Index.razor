@@ -1,0 +1,79 @@
+﻿@page "/projects"
+@using MudBlazor
+
+<MudContainer MaxWidth="MaxWidth.False" Class="py-10 px-4 font-sans">
+    <MudText Typo="Typo.h4" Class="mb-4 font-bold text-center text-white">Meus Projetos</MudText>
+
+    <MudTextField @bind-Value="_searchTerm" Label="Filtrar por nome" Variant="Variant.Outlined"
+                  Class="mb-6 w-full sm:w-1/2" Style="color:white"  Adornment="Adornment.Start"
+                  AdornmentIcon="@Icons.Material.Filled.Search" />
+
+    <MudGrid GutterSize="3">
+        @foreach (var projeto in Filtrados)
+        {
+            <MudItem xs="12" sm="6" md="4" lg="3">
+                <MudCard Class="h-full hover-scale transition">
+                    @if (!string.IsNullOrWhiteSpace(projeto.ImagemUrl))
+                    {
+                        <MudCardMedia Image="@projeto.ImagemUrl" Height="160" />
+                    }
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6" Class="font-bold">@projeto.Nome</MudText>
+                        <MudText Typo="Typo.body2" Class="mt-2">@projeto.Descricao</MudText>
+                    </MudCardContent>
+                    <MudCardActions>
+                        @if (!string.IsNullOrWhiteSpace(projeto.Link))
+                        {
+                            <MudButton Target="_blank" Href="@projeto.Link" Color="Color.Primary" Variant="Variant.Filled" Size="Size.Small">
+                                Ver projeto
+                            </MudButton>
+                        }
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private string _searchTerm = "";
+
+    private List<Projeto> Projetos = new()
+    {
+        new Projeto("Sistema Financeiro", "App web para controle de gastos e receitas.",
+                    "https://github.com/seuusuario/financeiro",
+                    "https://via.placeholder.com/400x200.png?text=Financeiro"),
+        new Projeto("Mapa Interativo", "Visualização de dados geográficos com GIS.",
+                    "https://github.com/seuusuario/mapa",
+                    "img/projetos/mapa.png"),
+        new Projeto("Blog Dev", "Blog pessoal com temas técnicos.",
+                    "https://github.com/seuusuario/blogdev",
+                    "https://via.placeholder.com/400x200.png?text=Blog+Dev"),
+        new Projeto("Sistema de Vendas", "CRUD completo com Blazor e EF Core.",
+                    imagemUrl: "img/projetos/vendas.png"),
+        new Projeto("Portfólio", "Este site com MudBlazor exibindo meus projetos.",
+                    "https://github.com/seuusuario/portfolio",
+                    "https://via.placeholder.com/400x200.png?text=Portfólio")
+    };
+
+    private IEnumerable<Projeto> Filtrados =>
+        string.IsNullOrWhiteSpace(_searchTerm)
+            ? Projetos
+            : Projetos.Where(p => p.Nome.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
+
+    private class Projeto
+    {
+        public Projeto(string nome, string descricao, string? link = null, string? imagemUrl = null)
+        {
+            Nome = nome;
+            Descricao = descricao;
+            Link = link;
+            ImagemUrl = imagemUrl;
+        }
+
+        public string Nome { get; set; }
+        public string Descricao { get; set; }
+        public string? Link { get; set; }
+        public string? ImagemUrl { get; set; }
+    }
+}
