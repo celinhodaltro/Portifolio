@@ -1,11 +1,11 @@
 {
   "mainAssemblyName": "Application.Main",
   "resources": {
-    "hash": "sha256-x1RgjVVHsXDH+SYjFDN5vK8AwVtOIfwuQyV97VbB1E0=",
+    "hash": "sha256-pmh1BB/NQ4khbQuBdx+RiiR5b0wg6y2sUye9AtZ77ig=",
     "fingerprinting": {
-      "Application.Main.xtvk8hoztb.wasm": "Application.Main.wasm",
-      "Core.Entities.ahooevq6b1.wasm": "Core.Entities.wasm",
-      "Core.Provider.3hfe9iopqh.wasm": "Core.Provider.wasm",
+      "Application.Main.3m7xm57g3v.wasm": "Application.Main.wasm",
+      "Core.Entities.qsri3m1040.wasm": "Core.Entities.wasm",
+      "Core.Provider.lgmqszcfgm.wasm": "Core.Provider.wasm",
       "Microsoft.AspNetCore.Components.Forms.r053fjs4u7.wasm": "Microsoft.AspNetCore.Components.Forms.wasm",
       "Microsoft.AspNetCore.Components.5l693o21h3.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.0qv3dzyjda.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
@@ -90,9 +90,9 @@
       "System.Runtime.InteropServices.JavaScript.zp9u3yqbi4.wasm": "sha256-t5fC5E2r9YJ+puOWw7YuXXMwvd7LxeR0Zt16THexNM0="
     },
     "assembly": {
-      "Application.Main.xtvk8hoztb.wasm": "sha256-JQp24Hcu3DsWnku7UG+abFcRewgd4ffGqtJrqTDNqqQ=",
-      "Core.Entities.ahooevq6b1.wasm": "sha256-7lsuQgrF0hQju1exLvd+DMrmtvznTab6L+qusWXCdLk=",
-      "Core.Provider.3hfe9iopqh.wasm": "sha256-KcmDlMZNGDjKwn8AxT1R1MnmpJKf57BTexd6L1Q9pZ4=",
+      "Application.Main.3m7xm57g3v.wasm": "sha256-yx5NucOtKI4IZdOt++GD34xr5H1HBoFm5stRqJ6nfAY=",
+      "Core.Entities.qsri3m1040.wasm": "sha256-OmiXljmed5tkWBK2IDuvbbQILglyOM2+lDaeJ/FSv7U=",
+      "Core.Provider.lgmqszcfgm.wasm": "sha256-y4NovdDPJ+209jnJkphFLCalz2XOZ9pBNkpgyDp6PUk=",
       "Microsoft.AspNetCore.Components.Forms.r053fjs4u7.wasm": "sha256-1Wiq2wQ7WCjo9fKkL/AUSia899+a8zbR6QRquH8nWRM=",
       "Microsoft.AspNetCore.Components.5l693o21h3.wasm": "sha256-mSy88MWN8CgQobR9C8HZwyLGC8eMNCvoMckv60LsEW8=",
       "Microsoft.AspNetCore.Components.Web.0qv3dzyjda.wasm": "sha256-WDx4HSOKo65g77Dd3vTu4+ktTTkcTE1DKtbUTzTPEfw=",

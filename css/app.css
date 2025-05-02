@@ -12,3 +12,13 @@ html, body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+
+@media (min-width: 768px) {
+    .section-full-height {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
