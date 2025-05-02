@@ -1,41 +1,27 @@
-﻿<MudContainer Class="py-10">
-    <MudPaper style="background-color:rgba(0, 0, 0, 0.3)" Elevation="1" Class="p-4">
-        <MudGrid>
+﻿    <MudPaper Style="background-color:rgba(0, 0, 0, 0.5); padding:30px" Elevation="3" Class="rounded-xl" >
+        <MudGrid GutterSize="3">
 
-            <MudItem xs="12" md="1">
-
-                <MudAvatar Style="height:120px; width:90px; font-size:2rem;" Size="Size.Large">
-                    <MudImage Src="img/avatar/avatar-su-style.png"></MudImage>
+            <!-- Avatar -->
+            <MudItem xs="12" md="3" Class="d-flex justify-center align-center">
+                <MudAvatar Style="height:200px; width:160px;" Size="Size.Large" Class="elevation-3">
+                    <MudImage Src="img/avatar/avatar-su-style.png" Alt="Avatar João Marcelo" />
                 </MudAvatar>
-
             </MudItem>
-            <MudItem xs="12" Style="padding-left:40px; color:white" md="11">
-                <MudText Typo="Typo.h5" Class="font-bold">João Marcelo Daltro Marques</MudText>
-                <MudDivider Class="my-3" />
-                <MudText Typo="Typo.body1">
-                    Developer Fullstack .NET
-                </MudText>
-                <MudDivider Class="my-3" />
-                <MudText Class="only-desktop" Typo="Typo.body2">
-                    Desenvolvedor Fullstack com ampla experiência no desenvolvimento de soluções
-                    web e sistemas corporativos, atuando com tecnologias como ASP.NET, Angular e
-                    Blazor. Experiência sólida desde a modelagem de dados até a entrega final de
-                    aplicações, com foco em qualidade, performance e manutenibilidade.
-                    Responsável por iniciativas que promoveram expressiva melhoria na eficiência de
-                    processos internos, incluindo a implantação de práticas DevOps, automação de
-                    pipelines e adoção de integração contínua. Atuou na refatoração de sistemas
-                    legados, resultando em ganhos significativos de desempenho, além de participar
-                    ativamente da concepção e desenvolvimento de aplicações desde o início, com
-                    foco em soluções GIS, dados financeiros, entre outras áreas estratégicas, gerando
-                    impactos operacionais positivos em diferentes setores.
-                    Atua com forte base em Clean Code, SOLID e metodologias ágeis, com destaque
-                    para a colaboração em equipes multidisciplinares e capacidade de entrega em
-                    ambientes de alta complexidade técnica.
+
+            <!-- Perfil -->
+            <MudItem xs="12" md="9" Class="text-white">
+                <MudText Typo="Typo.h4" Class="font-bold mb-1">João Marcelo Daltro Marques</MudText>
+                <MudText Typo="Typo.subtitle1" Class="text-secondary mb-3">Desenvolvedor Fullstack .NET</MudText>
+                <MudDivider Class="mb-3" />
+
+                <MudText Typo="Typo.body2" Class="text-justify">
+                    Desenvolvedor com experiência sólida no desenvolvimento de soluções web e sistemas corporativos utilizando tecnologias como <b>ASP.NET, Angular e Blazor</b>. Atuação desde a modelagem de dados até a entrega final de aplicações com foco em <b>qualidade, performance e manutenção</b>.
+                    <br /><br />
+                    Responsável por melhorias significativas em processos internos com <b>DevOps</b>, automação de pipelines e práticas de integração contínua. Experiência com refatoração de sistemas legados, desenvolvimento de aplicações novas (com foco em GIS e dados financeiros), sempre promovendo impacto operacional positivo.
+                    <br /><br />
+                    Seguidor de boas práticas como <b>Clean Code</b>, princípios <b>SOLID</b> e metodologias ágeis, com facilidade de atuação em ambientes complexos e equipes multidisciplinares.
                 </MudText>
             </MudItem>
 
         </MudGrid>
     </MudPaper>
-</MudContainer>
-
-
