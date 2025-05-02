@@ -12,4 +12,9 @@
     <PackageReference Include="MudBlazor" Version="8.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core.Provider\Core.Provider.csproj" />
+    <ProjectReference Include="..\..\Core\Core.Entities\Core.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
