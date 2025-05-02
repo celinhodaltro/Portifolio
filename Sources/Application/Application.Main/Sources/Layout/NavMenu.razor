@@ -38,10 +38,15 @@
            Anchor="Anchor.Right"
            Elevation="1">
     <MudDrawerHeader>
-        <MudText Typo="Typo.h6" Class="mb-2" Align="Align.Center">Menu</MudText>
+        <MudText Typo="Typo.h6" Class="mb-2" Align="Align.Center" Style="flex-grow: 1;">Menu</MudText>
+        <MudFab StartIcon="@Icons.Material.Filled.Close"
+                Color="Color.Error"
+                Size="Size.Small"
+                OnClick="ToggleMenu"
+                Class="mt-n6" />
     </MudDrawerHeader>
 
-    <MudNavMenu Class="pa-2" >
+    <MudNavMenu Class="pa-2">
         <MudGrid Gutter="Size.Small">
             @foreach (var item in MenuItems)
             {
@@ -100,7 +105,7 @@
     private IDialogService dialogService { get; set; }
     [Inject]
     private ISnackbar snackbar { get; set; }
-    [Inject] 
+    [Inject]
     IJSRuntime JS { get; set; }
 
     private void NavigateTo(string section)
