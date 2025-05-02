@@ -18,6 +18,15 @@
         OnClick="OpenContatoPopup" />
 
 
+<MudFab StartIcon="@Icons.Material.Filled.Download"
+        Class="floating-cv-button"
+        Size="Size.Medium"
+        Color="Color.Dark"
+        IconColor="Color.Primary"
+        OnClick="DownloadCurriculo" />
+
+
+
 <MudDrawer @bind-Open="@isOpen"
            Width="250px"
            Height="100%"
@@ -68,6 +77,13 @@
         top: 0;
         right: 0;
     }
+
+    .floating-cv-button {
+        position: fixed;
+        bottom: 20px;
+        right: 140px;
+        z-index: 1100;
+    }
 </style>
 
 @code {
@@ -102,5 +118,10 @@
         var parameters = new DialogParameters();
         var options = new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true };
         await dialogService.ShowAsync<Contact>("Contato", parameters, options);
+    }
+
+    private void DownloadCurriculo()
+    {
+        Navigation.NavigateTo("/docs/curriculo/Curriculo - João Marcelo Daltro Marques.pdf", true);
     }
 }
