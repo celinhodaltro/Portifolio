@@ -110,7 +110,7 @@
 
     private void NavigateTo(string section)
     {
-        Navigation.NavigateTo($"{Navigation.BaseUri}/{section}");
+        Navigation.NavigateTo($"{Navigation.BaseUri}{section}");
         isOpen = false;
     }
 
