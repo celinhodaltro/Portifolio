@@ -3,10 +3,10 @@
 
 
 <MudFab StartIcon="@menuIcon"
-        Color="Color.Dark"
         Size="Size.Medium"
-        IconColor="@menuColor"
+        Color="Color.Dark"
         Class="floating-menu-button"
+        Style="color:white"
         @onclick="ToggleMenu" />
 
 
@@ -14,7 +14,7 @@
         Class="floating-contact-button"
         Size="Size.Medium"
         Color="Color.Dark"
-        IconColor="Color.Primary"
+        Style="color:white"
         OnClick="OpenContatoPopup" />
 
 
@@ -22,7 +22,7 @@
         Class="floating-cv-button"
         Size="Size.Medium"
         Color="Color.Dark"
-        IconColor="Color.Primary"
+        Style="color:white"
         OnClick="DownloadCV">
 
 </MudFab>
@@ -97,7 +97,6 @@
     private bool isOpen = false;
 
     private string menuIcon => isOpen ? Icons.Material.Filled.Close : Icons.Material.Filled.Menu;
-    private Color menuColor => isOpen ? Color.Error : Color.Primary;
     private record MenuItem(string Icon, string Label, string Route);
     private void ToggleMenu() => isOpen = !isOpen;
 
