@@ -2,44 +2,44 @@
 
 
 <MudFab StartIcon="@menuIcon"
-Size="Size.Medium"
-Class="floating-menu-button"
-Style="color:white; background-color:black"
-@onclick="ToggleMenu" />
+        Size="Size.Medium"
+        Class="floating-menu-button"
+        Style="color:white; background-color:black"
+        @onclick="ToggleMenu" />
 
 
 <MudFab StartIcon="@Icons.Material.Filled.ContactPhone"
-Class="floating-contact-button"
-Size="Size.Medium"
-Style="color:white; background-color:black"
-OnClick="OpenContatoPopup" />
+        Class="floating-contact-button"
+        Size="Size.Medium"
+        Style="color:white; background-color:black"
+        OnClick="OpenContatoPopup" />
 
 
 <MudFab StartIcon="@Icons.Material.Filled.Download"
-Class="floating-cv-button"
-Size="Size.Medium"
-Style="color:white; background-color:black"
-OnClick="DownloadCV">
+        Class="floating-cv-button"
+        Size="Size.Medium"
+        Style="color:white; background-color:black"
+        OnClick="DownloadCV">
 
 </MudFab>
 
 
 
 <MudDrawer @bind-Open="@isOpen"
-Width="400px"
-Height="100%"
-Fixed="true"
-OverlayAutoClose="true"
-Variant="@DrawerVariant.Temporary"
-Anchor="Anchor.Right"
-Elevation="1">
+           Width="400px"
+           Height="100%"
+           Fixed="true"
+           OverlayAutoClose="true"
+           Variant="@DrawerVariant.Temporary"
+           Anchor="Anchor.Right"
+           Style="background-color:#1E1E2F"
+           Elevation="1">
     <MudDrawerHeader>
-        <MudText Typo="Typo.h6" Class="mb-2" Style="flex-grow: 1;">Menu</MudText>
+        <MudText Typo="Typo.h6" Class="mb-2" Style="flex-grow: 1; color:white">Menu</MudText>
         <MudFab StartIcon="@Icons.Material.Filled.Close"
-        Color="Color.Error"
-        Size="Size.Small"
-        OnClick="ToggleMenu"
-        />
+                Color="Color.Error"
+                Size="Size.Small"
+                OnClick="ToggleMenu" />
     </MudDrawerHeader>
 
     <MudNavMenu Class="pa-2">
@@ -48,8 +48,8 @@ Elevation="1">
             {
                 <MudItem xs="12" sm="6">
                     <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
-                    Style="min-height: 120px; max-height:120px; background-color:#2B323D"
-                    @onclick="@(() => NavigateTo(item.Route))">
+                              Style="min-height: 120px; max-height:120px; background-color:#2B323D"
+                              @onclick="@(() => NavigateTo(item.Route))">
                         <MudIcon Icon="@item.Icon" Size="Size.Large" Color="Color.Primary" />
                         <MudText Class="text-white" Typo="Typo.subtitle1" Align="Align.Center">@item.Label</MudText>
                     </MudPaper>
@@ -62,30 +62,30 @@ Elevation="1">
 
 <style>
     .floating-menu-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1100;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1100;
     }
 
     .floating-contact-button {
-    position: fixed;
-    bottom: 20px;
-    right: 80px;
-    z-index: 1100;
+        position: fixed;
+        bottom: 20px;
+        right: 80px;
+        z-index: 1100;
     }
 
     .mud-drawer {
-    position: fixed !important;
-    top: 0;
-    right: 0;
+        position: fixed !important;
+        top: 0;
+        right: 0;
     }
 
     .floating-cv-button {
-    position: fixed;
-    bottom: 20px;
-    right: 140px;
-    z-index: 1100;
+        position: fixed;
+        bottom: 20px;
+        right: 140px;
+        z-index: 1100;
     }
 </style>
 
@@ -114,9 +114,9 @@ Elevation="1">
     private List<MenuItem> MenuItems = new()
     {
         new(Icons.Material.Filled.ContactPage, "Inicio", ""),
-        new(Icons.Material.Filled.Work, "Experiências", "school"),
-        new(Icons.Material.Filled.School, "Formação", "experience"),
-        new(Icons.Material.Filled.LibraryBooks, "Cursos", "courses"),
+        //new(Icons.Material.Filled.Work, "Experiências", "school"),
+        //new(Icons.Material.Filled.School, "Formação", "experience"),
+        //new(Icons.Material.Filled.LibraryBooks, "Cursos", "courses"),
         new(Icons.Material.Filled.SettingsSystemDaydream, "Projetos", "projects")
     };
 
@@ -125,7 +125,7 @@ Elevation="1">
     private async Task OpenContatoPopup()
     {
         var parameters = new DialogParameters();
-        var options = new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true };
+        var options = new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true, NoHeader = true };
         await dialogService.ShowAsync<Contact>("Contato", parameters, options);
     }
 

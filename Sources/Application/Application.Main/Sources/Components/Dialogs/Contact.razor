@@ -1,7 +1,9 @@
-﻿<MudDialog style="background-color:white; text-align:center" >
+﻿<MudDialog style="background-color:#1E1E2F; text-align:center; color:white">
     <DialogContent>
+
+        <MudText Align="Align.Left" Typo="Typo.h5">Meus contatos:</MudText>
         <MudDivider Class="my-2" />
-        <MudText Typo="Typo.subtitle1" Align="Align.Left">
+        <MudText Typo="Typo.subtitle1" Style="color:white" Align="Align.Left">
             Fique à vontade para entrar em contato para serviços, colaborações ou networking.
         </MudText>
         <MudDivider Class="my-2" />
@@ -28,7 +30,7 @@
 @code {
     [CascadingParameter] IMudDialogInstance MudDialog { get; set; }
 
-    [Inject] IServiceProvider ServiceProvider { get; set; }
+    [Inject] IServiceProvider? ServiceProvider { get; set; }
 
     void OpenUrl(string url)
     {
@@ -40,7 +42,7 @@
                                                                                                      Style="background-color:#2B323D;  color:white;"
                                                                                                      @onclick="() => OpenUrl(url)">
         <MudCard Elevation="0" Style="background-color:transparent;">
-            <MudCardContent Class="d-flex flex-column align-center text-center py-4">
+            <MudCardContent Class="d-flex flex-column align-center text-center  py-4">
                 <MudIcon Icon="@icon" Size="Size.Large" Color="@color" />
                 <MudText Typo="Typo.subtitle1" Class="mt-2 font-semibold text-white">@title</MudText>
             </MudCardContent>
