@@ -4,25 +4,22 @@
 
 <MudFab StartIcon="@menuIcon"
         Size="Size.Medium"
-        Color="Color.Dark"
         Class="floating-menu-button"
-        Style="color:white"
+        Style="color:white; background-color:black"
         @onclick="ToggleMenu" />
 
 
 <MudFab StartIcon="@Icons.Material.Filled.ContactPhone"
         Class="floating-contact-button"
         Size="Size.Medium"
-        Color="Color.Dark"
-        Style="color:white"
+        Style="color:white; background-color:black"
         OnClick="OpenContatoPopup" />
 
 
 <MudFab StartIcon="@Icons.Material.Filled.Download"
         Class="floating-cv-button"
         Size="Size.Medium"
-        Color="Color.Dark"
-        Style="color:white"
+        Style="color:white; background-color:black"
         OnClick="DownloadCV">
 
 </MudFab>
@@ -101,11 +98,11 @@
     private void ToggleMenu() => isOpen = !isOpen;
 
     [Inject]
-    private IDialogService dialogService { get; set; }
+    private IDialogService? dialogService { get; set; }
     [Inject]
-    private ISnackbar snackbar { get; set; }
+    private ISnackbar? snackbar { get; set; }
     [Inject]
-    IJSRuntime JS { get; set; }
+    IJSRuntime? JS { get; set; }
 
     private void NavigateTo(string section)
     {
