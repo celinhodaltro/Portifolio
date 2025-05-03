@@ -1,5 +1,5 @@
 ﻿@page "/projects"
-@using MudBlazor
+@inject NavigationManager Navigation;
 
 <MudContainer MaxWidth="MaxWidth.False" Class="py-10 px-4 font-sans">
     <MudText Typo="Typo.h4" Class="mb-4 font-bold text-center text-white">Meus Projetos</MudText>
@@ -12,10 +12,11 @@
         @foreach (var projeto in Filters)
         {
             <MudItem xs="12" sm="6" md="4" lg="3">
-                <MudCard Style="height: 100%; display: flex; flex-direction: column;" Class="hover-scale transition">
-                    @if (!string.IsNullOrWhiteSpace(projeto.ImagemUrl))
+                <MudCard Style="height: 100%; display: flex; flex-direction: column; background-color:#2B323D; color:white" Class="hover-scale transition">
+                    @if (!string.IsNullOrWhiteSpace(projeto.ImageUrl))
                     {
-                        <MudCardMedia Image="@projeto.ImagemUrl" Height="160" />
+
+                        <MudCardMedia Image="@projeto.ImageUrl" />
                     }
 
                     <MudCardContent Style="flex-grow: 1;">
@@ -26,7 +27,7 @@
                     <MudCardActions>
                         @if (!string.IsNullOrWhiteSpace(projeto.Link))
                         {
-                            <MudButton Target="_blank" Href="@projeto.Link"
+                            <MudButton StartIcon="@Icons.Custom.Brands.LinkedIn" IconColor="Color.Primary" Target="_blank" Href="@projeto.Link"
                                        Color="Color.Primary" Variant="Variant.Filled" Size="Size.Small">
                                 Ver projeto
                             </MudButton>
@@ -38,46 +39,44 @@
     </MudGrid>
 
 </MudContainer>
-
 @code {
     private string _searchTerm = "";
-
-    private List<Projeto> Projetos = new()
-    {
-        new Projeto("Sistema Financeiro", "App web para controle de gastos e receitas.",
-                    "https://github.com/seuusuario/financeiro",
-                    "https://via.placeholder.com/400x200.png?text=Financeiro"),
-        new Projeto("Mapa Interativo", "Visualização de dados geográficos com GIS.",
-                    "https://github.com/seuusuario/mapa",
-                    "img/projetos/mapa.png"),
-        new Projeto("Blog Dev", "Blog pessoal com temas técnicos.",
-                    "https://github.com/seuusuario/blogdev",
-                    "https://via.placeholder.com/400x200.png?text=Blog+Dev"),
-        new Projeto("Sistema de Vendas", "CRUD completo com Blazor e EF Core.",
-                    imagemUrl: "img/projetos/vendas.png"),
-        new Projeto("Portfólio", "Este site com MudBlazor exibindo meus projetos.",
-                    "https://github.com/seuusuario/portfolio",
-                    "https://via.placeholder.com/400x200.png?text=Portfólio")
-    };
+    private List<Projeto> Projetos = new();
 
     private IEnumerable<Projeto> Filters =>
         string.IsNullOrWhiteSpace(_searchTerm)
             ? Projetos
             : Projetos.Where(p => p.Nome.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
 
+    protected override void OnInitialized()
+    {
+        Projetos = new List<Projeto>
+        {
+            new Projeto("Ursulla Bot", "Um bot para focado em organizar raids, funcionando perfeitamente e em uso por diversos servidores!"),
+            new Projeto("Portifolio", "Este site foi feito em blazor, exibindo todas as informações da minha carreira.",
+                        "https://github.com/celinhodaltro/Portifolio"),
+
+        };
+
+        foreach (var projeto in Projetos)
+        {
+            projeto.ImageUrl = $"{Navigation.BaseUri}img/projects/{projeto.Nome}.png";
+        }
+    }
+
     private class Projeto
     {
-        public Projeto(string nome, string descricao, string? link = null, string? imagemUrl = null)
+        public Projeto(string nome, string descricao, string? link = null, string? imageUrl = null)
         {
             Nome = nome;
             Descricao = descricao;
             Link = link;
-            ImagemUrl = imagemUrl;
+            ImageUrl = imageUrl;
         }
 
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public string? Link { get; set; }
-        public string? ImagemUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }
