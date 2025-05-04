@@ -52,14 +52,12 @@
     {
         Projetos = new List<Projeto>
         {
-            new Projeto("Ursulla Bot", "Um bot para focado em organizar raids, funcionando perfeitamente e em uso por diversos servidores!"),
-            new Projeto("Portifolio", "Este site foi feito em blazor, exibindo todas as informações da minha carreira.",
+            new Projeto("Ursulla Bot", "Um bot projetado para organizar raids de maneira eficiente, em uso ativo em diversos servidores!"),
+            new Projeto("Portfolio", "Site desenvolvido em Blazor, exibindo todas as informações relevantes sobre minha carreira profissional.",
                         "https://github.com/celinhodaltro/Portifolio"),
-            new Projeto("Invoice Project", "Este foi um projeto que fiz e fui bastante elogiado em um teste para uma vaga!",
+            new Projeto("Invoice Project", "Projeto desenvolvido para um teste de vaga, sendo amplamente elogiado pela sua qualidade e funcionalidade.",
                         "https://github.com/celinhodaltro/ProjetoFatura")
-
         };
-
         foreach (var projeto in Projetos)
         {
             projeto.ImageUrl = $"{Navigation.BaseUri}img/projects/{projeto.Nome}.png";
