@@ -1,50 +1,60 @@
 ﻿@page "/experiences"
+@using Application.Main.Sources.Components.Dialogs
 @inject NavigationManager Navigation;
 
 
 <MudContainer MaxWidth="MaxWidth.False" Class="py-10 px-4 font-sans">
 
     <MudTimeline TimelineOrientation="TimelineOrientation.Vertical" Style="color:white">
-        <MudTimelineItem Color="Color.Primary" Elevation="25" TimelineAlign="TimelineAlign.End" Style="width: 100%;">
-            <MudChat ChatPosition="ChatBubblePosition.Start">
-                <MudAvatar Size="Size.Large">
-                    <MudImage Fluid="true" Src="img/experiences/conder.png" />
-                </MudAvatar>
-                <MudChatBubble Style="color:white">Software Analyst</MudChatBubble>
-                <MudChatFooter>
-                    05/05/2024 <MudIcon Icon="@Icons.Material.Filled.DateRange" />
-                    <MudIcon Icon="@Icons.Material.Filled.NavigateNext" />
-                    ... <MudIcon Icon="@Icons.Material.Filled.DateRange" />
+        @foreach (var exp in Experiences.Select((value, index) => new { value, index }))
+        {
+            var align = exp.index % 2 == 0 ? TimelineAlign.End : TimelineAlign.Start;
 
-                </MudChatFooter>
-            </MudChat>
-        </MudTimelineItem>
-        <MudTimelineItem Color="Color.Primary" Elevation="25" TimelineAlign="TimelineAlign.Start" Style="width: 100%;">
-            <MudChat ChatPosition="ChatBubblePosition.End">
-                <MudAvatar Size="Size.Large">
-                    <MudImage Fluid="true" Src="img/experiences/gclaims.png" />
-                </MudAvatar>
-                <MudChatBubble Style="color:white">FullStack Developer</MudChatBubble>
-                <MudChatFooter>
-                    05/05/2022 <MudIcon Icon="@Icons.Material.Filled.DateRange" />
-                    <MudIcon Icon="@Icons.Material.Filled.NavigateNext" />
-                    05/04/2024 <MudIcon Icon="@Icons.Material.Filled.DateRange" />
-                </MudChatFooter>
-            </MudChat>
-        </MudTimelineItem>
-        <MudTimelineItem Color="Color.Primary" Elevation="25" TimelineAlign="TimelineAlign.End" Style="width: 100%;">
-            <MudChat ChatPosition="ChatBubblePosition.Start">
-                <MudAvatar Size="Size.Large">
-                    <MudImage Fluid="true" Src="img/experiences/divtech.png" />
-                </MudAvatar>
-                <MudChatBubble Style="color:white">FullStack Developer</MudChatBubble>
-                <MudChatFooter>
-                    05/05/2021 <MudIcon Icon="@Icons.Material.Filled.DateRange" />
-                    <MudIcon Icon="@Icons.Material.Filled.NavigateNext" />
-                    05/04/2022 <MudIcon Icon="@Icons.Material.Filled.DateRange" />
-                </MudChatFooter>
-            </MudChat>
-        </MudTimelineItem>
-
+            <MudTimelineItem Color="Color.Primary" Elevation="25" TimelineAlign="@align" Style="width: 100%;">
+                <MudChat ChatPosition="@(align == TimelineAlign.End ? ChatBubblePosition.Start : ChatBubblePosition.End)">
+                    <MudAvatar Size="Size.Large">
+                        <MudImage Fluid="true" Src="@exp.value.CompanyImage" />
+                    </MudAvatar>
+                    <MudChatBubble Style="color:white; cursor: pointer;" @onclick="() => OpenModal(exp.value)">
+                        @exp.value.Title
+                    </MudChatBubble>
+                    <MudChatFooter>
+                        @exp.value.Start.ToString("dd/MM/yyyy") <MudIcon Icon="@Icons.Material.Filled.DateRange" />
+                        <MudIcon Icon="@Icons.Material.Filled.NavigateNext" />
+                        @(exp.value.End?.ToString("dd/MM/yyyy") ?? "...") <MudIcon Icon="@Icons.Material.Filled.DateRange" />
+                    </MudChatFooter>
+                </MudChat>
+            </MudTimelineItem>
+        }
     </MudTimeline>
+
 </MudContainer>
+
+
+
+@code {
+
+    private Experience SelectedExperience;
+    private bool IsModalOpen = false;
+
+    private List<Experience> Experiences = new()
+    {
+        new() { Title = "Software Analyst", CompanyImage = "img/experiences/conder.png", Start = new DateTime(2024,5,5), End = null, Description = "Atuação em análise de sistemas para gestão pública..." },
+        new() { Title = "FullStack Developer", CompanyImage = "img/experiences/gclaims.png", Start = new DateTime(2022,5,5), End = new DateTime(2024,5,4), Description = "Desenvolvimento de sistemas com Blazor e .NET..." },
+        new() { Title = "FullStack Developer", CompanyImage = "img/experiences/divtech.png", Start = new DateTime(2021,5,5), End = new DateTime(2022,5,4), Description = "Participação em equipe ágil, manutenção de sistemas legados..." }
+    };
+
+
+    private async Task OpenModal(Experience experience)
+    {
+        var parameters = new DialogParameters();
+        parameters.Add("_experience", experience);
+        var options = new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true, NoHeader = true };
+        await dialogService.ShowAsync<DialogExperience>("Experiencia", parameters, options);
+    }
+
+    [Inject]
+    private IDialogService? dialogService { get; set; }
+
+
+}
