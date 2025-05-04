@@ -80,7 +80,7 @@
 
     private void NavigateTo(string section)
     {
-        Navigation.NavigateTo($"{Navigation.BaseUri}{section}");
+        Navigation!.NavigateTo($"{Navigation.BaseUri}{section}");
         isOpen = false;
     }
 
@@ -107,7 +107,7 @@
     {
         var pdfPath = $"{Navigation.BaseUri}docs/curriculo/Curriculo.pdf";
 
-        await JS.InvokeVoidAsync("downloadFile", pdfPath);
+        await JS.InvokeVoidAsync("downloadFile", pdfPath, "Curriculo - João Marcelo Daltro Marques.pdf");
         snackbar.Add("Obrigado por baixar meu currículo! 😁", Severity.Success);
     }
 }

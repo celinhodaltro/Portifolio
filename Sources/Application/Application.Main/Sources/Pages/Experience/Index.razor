@@ -5,6 +5,8 @@
 
 <MudContainer MaxWidth="MaxWidth.False" Class="py-10 px-4 font-sans">
 
+
+
     <MudTimeline TimelineOrientation="TimelineOrientation.Vertical" Style="color:white">
         @foreach (var exp in Experiences.Select((value, index) => new { value, index }))
         {
@@ -27,13 +29,11 @@
             </MudTimelineItem>
         }
     </MudTimeline>
-
 </MudContainer>
 
 
 
 @code {
-
     private Experience SelectedExperience;
     private bool IsModalOpen = false;
 
@@ -59,11 +59,12 @@
         {
             Title = "FullStack Developer (Estágio)",
             CompanyImage = "img/experiences/divtech.png",
-            Start = new DateTime(2021, 12, 1),
+            Start = new DateTime(2024, 5, 1),
             End = new DateTime(2022, 5, 4),
             Description = "Participação no desenvolvimento de aplicações com ASP.NET. Atuação na modelagem de banco de dados, desenvolvimento de funcionalidades em Angular e entrega final de sistemas em equipe."
         }
     };
+
 
     private async Task OpenModal(Experience experience)
     {
