@@ -17,8 +17,13 @@
                     <MudAvatar Size="Size.Large">
                         <MudImage Fluid="true" Src="@exp.value.CompanyImage" />
                     </MudAvatar>
-                    <MudChatBubble Style="color:white; cursor: pointer;" @onclick="() => OpenModal(exp.value)">
+                    <MudChatBubble Class="my-1" Style="color:white; cursor: pointer;" @onclick="() => OpenModal(exp.value)">
                         @exp.value.Title
+                        @if (!String.IsNullOrEmpty(exp.value.Detail))
+                        {
+                            <MudDivider></MudDivider>
+                            @exp.value.Detail
+                        }
                     </MudChatBubble>
                     <MudChatFooter>
                         @exp.value.Start.ToString("dd/MM/yyyy") <MudIcon Icon="@Icons.Material.Filled.DateRange" />
@@ -57,11 +62,12 @@
         },
         new()
         {
-            Title = "FullStack Developer (Estágio)",
+            Title = "FullStack Developer",
             CompanyImage = "img/experiences/divtech.png",
             Start = new DateTime(2024, 5, 1),
             End = new DateTime(2022, 5, 4),
-            Description = "Participação no desenvolvimento de aplicações com ASP.NET. Atuação na modelagem de banco de dados, desenvolvimento de funcionalidades em Angular e entrega final de sistemas em equipe."
+            Description = "Participação no desenvolvimento de aplicações com ASP.NET. Atuação na modelagem de banco de dados, desenvolvimento de funcionalidades em Angular e entrega final de sistemas em equipe.",
+            Detail = "Estagio"
         }
     };
 
