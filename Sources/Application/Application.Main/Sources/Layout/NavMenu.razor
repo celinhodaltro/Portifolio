@@ -4,21 +4,21 @@
 <MudFab StartIcon="@menuIcon"
         Size="Size.Medium"
         Class="floating-menu-button"
-        Style="color:white; background-color:black"
+        Style="color:white; background-color:#1E1E2F"
         @onclick="ToggleMenu" />
 
 
 <MudFab StartIcon="@Icons.Material.Filled.ContactPhone"
         Class="floating-contact-button"
         Size="Size.Medium"
-        Style="color:white; background-color:black"
+        Style="color:white; background-color:#1E1E2F"
         OnClick="OpenContatoPopup" />
 
 
 <MudFab StartIcon="@Icons.Material.Filled.Download"
         Class="floating-cv-button"
         Size="Size.Medium"
-        Style="color:white; background-color:black"
+        Style="color:white; background-color:#1E1E2F"
         OnClick="DownloadCV">
 
 </MudFab>
@@ -60,34 +60,7 @@
     </MudNavMenu>
 </MudDrawer>
 
-<style>
-    .floating-menu-button {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1100;
-    }
 
-    .floating-contact-button {
-        position: fixed;
-        bottom: 20px;
-        right: 80px;
-        z-index: 1100;
-    }
-
-    .mud-drawer {
-        position: fixed !important;
-        top: 0;
-        right: 0;
-    }
-
-    .floating-cv-button {
-        position: fixed;
-        bottom: 20px;
-        right: 140px;
-        z-index: 1100;
-    }
-</style>
 
 @code {
     private bool isOpen = false;
@@ -113,7 +86,7 @@
 
     private List<MenuItem> MenuItems = new()
     {
-        new(Icons.Material.Filled.ContactPage, "Inicio", ""),
+        new(Icons.Material.Filled.Home, "Inicio", ""),
         //new(Icons.Material.Filled.Work, "Formação", "school"),
         new(Icons.Material.Filled.School, "Experiencia", "experiences"),
         //new(Icons.Material.Filled.School, "Identidade visual", "IdentityVisual"),
@@ -149,3 +122,32 @@
         document.body.removeChild(link);
     }
 </script>
+
+<style>
+    .floating-menu-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1100;
+    }
+
+    .floating-contact-button {
+        position: fixed;
+        bottom: 20px;
+        right: 80px;
+        z-index: 1100;
+    }
+
+    .mud-drawer {
+        position: fixed !important;
+        top: 0;
+        right: 0;
+    }
+
+    .floating-cv-button {
+        position: fixed;
+        bottom: 20px;
+        right: 140px;
+        z-index: 1100;
+    }
+</style>
