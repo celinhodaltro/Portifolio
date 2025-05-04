@@ -1,0 +1,47 @@
+﻿@using MudBlazor
+@code {
+    [CascadingParameter] IMudDialogInstance MudDialog { get; set; }
+    [Parameter] public Experience _experience { get; set; }
+}
+
+<MudDialog Style="background-color:#1E1E2F; color:white; border-radius:12px; padding:24px; max-width:500px;">
+    <DialogContent>
+
+        <div class="d-flex align-items-center mb-4">
+            <MudAvatar Size="Size.Large" Class="me-3">
+                <MudImage Src="@_experience.CompanyImage" Alt="Avatar" Fluid=true Style="border-radius: 50%;" />
+            </MudAvatar>
+            <MudText Typo="Typo.h6" Class="fw-bold">@_experience.Title</MudText>
+        </div>
+
+        <MudText Typo="Typo.body1" Class="mb-2" Style="opacity: 0.85;">
+            @_experience.Description
+        </MudText>
+
+        <MudDivider Class="my-3" />
+
+        <MudGrid>
+            <MudItem xs="6">
+                <MudText Typo="Typo.caption" Color="Color.Secondary">Início</MudText>
+                <MudText Typo="Typo.body2">
+                    <MudIcon Icon="@Icons.Material.Filled.DateRange" />
+                    @_experience.Start.ToString("dd/MM/yyyy")
+                </MudText>
+            </MudItem>
+            <MudItem xs="6">
+                <MudText Typo="Typo.caption" Color="Color.Secondary">Fim</MudText>
+                <MudText Typo="Typo.body2">
+                    <MudIcon Icon="@Icons.Material.Filled.DateRange" />
+                    @(_experience.End?.ToString("dd/MM/yyyy") ?? "...")
+                </MudText>
+            </MudItem>
+        </MudGrid>
+
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="() => MudDialog.Close()" Color="Color.Primary" Variant="Variant.Filled">
+            Fechar
+        </MudButton>
+    </DialogActions>
+</MudDialog>
