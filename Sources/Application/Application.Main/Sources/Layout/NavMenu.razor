@@ -50,7 +50,7 @@
                     <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
                               Style="min-height: 120px; max-height:120px; background-color:#2B323D"
                               @onclick="@(() => NavigateTo(item.Route))">
-                        <MudIcon Icon="@item.Icon" Size="Size.Large" Color="Color.Primary" />
+                        <MudIcon Icon="@item.Icon" Size="Size.Large" Style="color:white" />
                         <MudText Class="text-white" Typo="Typo.subtitle1" Align="Align.Center">@item.Label</MudText>
                     </MudPaper>
                 </MudItem>
