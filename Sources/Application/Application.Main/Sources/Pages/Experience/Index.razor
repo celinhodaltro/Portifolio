@@ -39,11 +39,31 @@
 
     private List<Experience> Experiences = new()
     {
-        new() { Title = "Software Analyst", CompanyImage = "img/experiences/conder.png", Start = new DateTime(2024,5,5), End = null, Description = "Atuação em análise de sistemas para gestão pública..." },
-        new() { Title = "FullStack Developer", CompanyImage = "img/experiences/gclaims.png", Start = new DateTime(2022,5,5), End = new DateTime(2024,5,4), Description = "Desenvolvimento de sistemas com Blazor e .NET..." },
-        new() { Title = "FullStack Developer", CompanyImage = "img/experiences/divtech.png", Start = new DateTime(2021,5,5), End = new DateTime(2022,5,4), Description = "Participação em equipe ágil, manutenção de sistemas legados..." }
+        new()
+        {
+            Title = "Software Analyst",
+            CompanyImage = "img/experiences/conder.png",
+            Start = new DateTime(2024, 5, 5),
+            End = null,
+            Description = "Desenvolvimento de soluções geoespaciais com .NET 8/9, Blazor e Angular. Implantação da cultura DevOps na Conder, promovendo automação e integração contínua. Gerenciamento de dados geográficos e manipulação de bancos PostgreSQL e Oracle. Criação de sistemas completos, desde a concepção até a entrega final."
+        },
+        new()
+        {
+            Title = "FullStack Developer",
+            CompanyImage = "img/experiences/gclaims.png",
+            Start = new DateTime(2022, 5, 5),
+            End = new DateTime(2024, 5, 4),
+            Description = "Desenvolvimento de APIs REST com ASP.NET, criação de interfaces web com Angular. Versionamento com Git e participação em reuniões ágeis, contribuindo com entregas em equipe multidisciplinar."
+        },
+        new()
+        {
+            Title = "FullStack Developer (Estágio)",
+            CompanyImage = "img/experiences/divtech.png",
+            Start = new DateTime(2021, 12, 1),
+            End = new DateTime(2022, 5, 4),
+            Description = "Participação no desenvolvimento de aplicações com ASP.NET. Atuação na modelagem de banco de dados, desenvolvimento de funcionalidades em Angular e entrega final de sistemas em equipe."
+        }
     };
-
 
     private async Task OpenModal(Experience experience)
     {
