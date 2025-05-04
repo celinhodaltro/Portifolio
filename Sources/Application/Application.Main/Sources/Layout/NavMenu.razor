@@ -127,7 +127,7 @@
     {
         var parameters = new DialogParameters();
         var options = new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true, NoHeader = true };
-        await dialogService.ShowAsync<Contact>("Contato", parameters, options);
+        await dialogService.ShowAsync<DialogContact>("Contato", parameters, options);
     }
 
     private async Task DownloadCV()
