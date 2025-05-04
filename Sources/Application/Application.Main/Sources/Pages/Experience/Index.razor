@@ -4,8 +4,8 @@
 
 
 <MudContainer MaxWidth="MaxWidth.False" Class="py-10 px-4 font-sans">
-
-    <MudDivider></MudDivider>
+    <MudText Class="text-white" Align="Align.Center" Typo="Typo.h3">Experiencias</MudText>
+    <MudDivider Class="mt-5"></MudDivider>
     <MudTimeline TimelineOrientation="TimelineOrientation.Vertical" Style="color:white">
         @foreach (var exp in Experiences.Select((value, index) => new { value, index }))
         {

@@ -13,6 +13,17 @@ html, body {
     background-size: cover;
 }
 
+body {
+    font-family: 'Fredoka', sans-serif !important;
+}
+
+* {
+    font-family: 'Fredoka', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, button {
+    font-family: 'Fredoka', sans-serif !important;
+}
 
 @media (min-width: 768px) {
     .section-full-height {
