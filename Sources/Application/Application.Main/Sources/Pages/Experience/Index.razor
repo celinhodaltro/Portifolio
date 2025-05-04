@@ -5,26 +5,40 @@
 
 <MudContainer MaxWidth="MaxWidth.False" Class="py-10 px-4 font-sans">
 
-
-
+    <MudDivider></MudDivider>
     <MudTimeline TimelineOrientation="TimelineOrientation.Vertical" Style="color:white">
         @foreach (var exp in Experiences.Select((value, index) => new { value, index }))
         {
-            var align = exp.index % 2 == 0 ? TimelineAlign.End : TimelineAlign.Start;
+            var align = TimelineAlign.End;
 
             <MudTimelineItem Color="Color.Primary" Elevation="25" TimelineAlign="@align" Style="width: 100%;">
-                <MudChat ChatPosition="@(align == TimelineAlign.End ? ChatBubblePosition.Start : ChatBubblePosition.End)">
+                <MudChat ChatPosition="ChatBubblePosition.Start">
                     <MudAvatar Size="Size.Large">
                         <MudImage Fluid="true" Src="@exp.value.CompanyImage" />
                     </MudAvatar>
+
                     <MudChatBubble Class="my-1" Style="color:white; cursor: pointer;" @onclick="() => OpenModal(exp.value)">
-                        @exp.value.Title
+                        @if (!String.IsNullOrEmpty(exp.value.Company))
+                        {
+                            <div class="d-flex align-items-center mb-1">
+                                <MudIcon Size="Size.Small" Class="me-1" Color="Color.Primary" Icon="@Icons.Material.Filled.CorporateFare" />
+                                <span>@exp.value.Company</span>
+                            </div>
+                            <MudDivider />
+                        }
+
+                        <div class="d-flex align-items-center mb-1">
+                            <MudIcon Size="Size.Small" Class="me-1" Color="Color.Primary" Icon="@Icons.Material.Filled.Work" />
+                            <span>@exp.value.Title</span>
+                        </div>
+
                         @if (!String.IsNullOrEmpty(exp.value.Detail))
                         {
-                            <MudDivider></MudDivider>
-                            @exp.value.Detail
+                            <MudDivider />
+                            <div>@exp.value.Detail</div>
                         }
                     </MudChatBubble>
+
                     <MudChatFooter>
                         @exp.value.Start.ToString("dd/MM/yyyy") <MudIcon Icon="@Icons.Material.Filled.DateRange" />
                         <MudIcon Icon="@Icons.Material.Filled.NavigateNext" />
@@ -32,8 +46,13 @@
                     </MudChatFooter>
                 </MudChat>
             </MudTimelineItem>
+
         }
     </MudTimeline>
+    <MudDivider></MudDivider>
+    <Application.Main.Sources.Components.ComponentSpecialization></Application.Main.Sources.Components.ComponentSpecialization>
+    <MudDivider></MudDivider>
+
 </MudContainer>
 
 
@@ -46,6 +65,7 @@
     {
         new()
         {
+            Company = "Conder",
             Title = "Software Analyst",
             CompanyImage = "img/experiences/conder.png",
             Start = new DateTime(2024, 5, 5),
@@ -54,6 +74,7 @@
         },
         new()
         {
+            Company = "General Claims",
             Title = "FullStack Developer",
             CompanyImage = "img/experiences/gclaims.png",
             Start = new DateTime(2022, 5, 5),
@@ -62,6 +83,7 @@
         },
         new()
         {
+            Company = "Divtech",
             Title = "FullStack Developer",
             CompanyImage = "img/experiences/divtech.png",
             Start = new DateTime(2024, 5, 1),
@@ -85,3 +107,6 @@
 
 
 }
+
+
+

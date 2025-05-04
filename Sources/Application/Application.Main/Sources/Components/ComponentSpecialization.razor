@@ -1,0 +1,38 @@
+﻿<MudContainer MaxWidth="MaxWidth.Medium" Class="my-4">
+    <MudGrid>
+        @foreach (var skill in Skills)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <MudCard Class="skill-card" Style="background-color:#1E1E2F; color:white">
+                    <MudCardContent Class="d-flex flex-column align-center">
+                        <MudText Typo="Typo.h6" Class="skill-name">@skill.Name</MudText>
+                        <MudProgressCircular Value="@skill.Level" Style="color:white" Size="Size.Large" Thickness="6" Class="my-2" />
+                        <MudText Typo="Typo.body2" Class="mt-2 skill-duration">@skill.Duration</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+</MudContainer>
+
+@code {
+
+    public class Skill
+    {
+        public string Name { get; set; } = string.Empty;
+        public int Level { get; set; } = 0;
+        public string Duration { get; set; } = "0 months";  // Adicionando a propriedade de duração
+    }
+
+    private List<Skill> Skills = new()
+    {
+        new Skill { Name = ".NET", Level = 85, Duration = "4 years" },
+        new Skill { Name = "Blazor", Level = 75, Duration = "3 years" },
+        new Skill { Name = "Angular", Level = 50, Duration = "3 year" },
+        new Skill { Name = "JavaScript", Level = 30, Duration = "4 years" },
+        new Skill { Name = "HTML | CSS", Level = 40, Duration = "4 year" },
+        new Skill { Name = "Devops", Level = 50, Duration = "1 years" },
+        new Skill { Name = "Dba", Level = 40, Duration = "4 year" },
+    };
+
+}

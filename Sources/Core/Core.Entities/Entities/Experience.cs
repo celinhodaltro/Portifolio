@@ -10,6 +10,7 @@ namespace Core.Entities
     {
         public string? Title { get; set; }
         public string? Detail { get; set; }
+        public string? Company { get; set; }
         public string? CompanyImage { get; set; }
         public DateTime Start { get; set; }
         public DateTime? End { get; set; }
