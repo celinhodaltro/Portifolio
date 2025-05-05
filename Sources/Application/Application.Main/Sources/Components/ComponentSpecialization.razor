@@ -9,9 +9,24 @@
 
                         <MudProgressCircular Value="@skill.Level" Size="Size.Medium" Color="Color.Primary" Thickness="4"
                                              Class="my-3"
-                                             Style="--mud-pc-track-color:rgba(255,255,255,0.1); --mud-pc-color:#00d4ff;" />
+                                             Style="--mud-pc-track-color:rgba(255,255,255,0.1); --mud-pc-color:#00d4ff;">
+                            <div style="color:white; font-weight:bold; font-size:0.8rem;">
+                                @skill.Level%
+                            </div>
+                        </MudProgressCircular>
 
-                        <MudText Typo="Typo.caption" Class="mt-1" Style="color:white">@skill.Duration</MudText>
+
+                        <MudText Typo="Typo.caption" Style="color:#00ffaa">
+                            <MudIcon Icon="@Icons.Material.Filled.Star" Size="Size.Small" />
+                             @GetSeniority(skill)
+                        </MudText>
+
+
+                        <MudText Typo="Typo.caption" Style="color:white">
+                            <MudIcon Icon="@Icons.Material.Filled.Schedule" Size="Size.Small" />
+                            @skill.Duration
+                        </MudText>
+
                     </MudCardContent>
                 </MudCard>
             </MudItem>
@@ -32,12 +47,40 @@
     private List<Skill> Skills = new()
     {
         new Skill { Name = ".NET", Level = 85, Duration = "4 years" },
-        new Skill { Name = "Blazor", Level = 75, Duration = "3 years" },
-        new Skill { Name = "Angular", Level = 50, Duration = "3 years" },
+        new Skill { Name = "Blazor", Level = 55, Duration = "3 years" },
+        new Skill { Name = "Angular", Level = 50, Duration = "4 years" },
         new Skill { Name = "JavaScript", Level = 30, Duration = "4 years" },
         new Skill { Name = "HTML | CSS", Level = 40, Duration = "4 years" },
         new Skill { Name = "Devops", Level = 50, Duration = "1 year" },
         new Skill { Name = "DBA", Level = 40, Duration = "4 years" },
     };
+
+    private string GetSeniority(Skill skill)
+    {
+        // Extrai número de anos ou meses da string
+        int durationInMonths = 0;
+
+        if (skill.Duration.Contains("year"))
+        {
+            var years = int.Parse(new string(skill.Duration.Where(char.IsDigit).ToArray()));
+            durationInMonths = years * 12;
+        }
+        else if (skill.Duration.Contains("month"))
+        {
+            durationInMonths = int.Parse(new string(skill.Duration.Where(char.IsDigit).ToArray()));
+        }
+
+        var QualifyRate = (durationInMonths / 10) + (skill.Level / 10);
+
+        if (QualifyRate < 5)
+            return "Trainer";
+        else if (QualifyRate < 10)
+            return "Junior";
+        else if (QualifyRate < 15)
+            return "Pleno";
+        else
+            return "Sênior";
+    }
+
 
 }
