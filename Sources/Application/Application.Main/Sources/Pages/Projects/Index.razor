@@ -2,41 +2,45 @@
 @inject NavigationManager Navigation;
 
 <MudContainer MaxWidth="MaxWidth.False" Class="py-10 px-4 font-sans">
-    <MudText Typo="Typo.h4" Class="mb-4 font-bold text-center text-white">Meus Projetos</MudText>
+    <MudPaper Style="background-color:#1E1E2F; padding:50px" Elevation="3" Class="rounded-xl">
 
-    <MudTextField @bind-Value="_searchTerm" Variant="Variant.Outlined"
-                  Class="mb-6 w-full sm:w-1/2" Style="color:white" Placeholder="Filtrar por nome" Adornment="Adornment.End"
-                  AdornmentIcon="@Icons.Material.Filled.Search" />
+        <MudText Typo="Typo.h4" Class="mb-4 font-bold text-center text-white">Meus Projetos</MudText>
 
-    <MudGrid GutterSize="3" Class="d-flex flex-wrap align-stretch">
-        @foreach (var projeto in Filters)
-        {
-            <MudItem xs="12" sm="6" md="4" lg="3">
-                <MudCard Style="height: 100%; display: flex; flex-direction: column; background-color:#2B323D; color:white" Class="hover-scale transition">
-                    @if (!string.IsNullOrWhiteSpace(projeto.ImageUrl))
-                    {
+        <MudTextField @bind-Value="_searchTerm" Variant="Variant.Outlined"
+                      Class="mb-6 w-full sm:w-1/2" Style="color:white" Placeholder="Filtrar por nome" Adornment="Adornment.End"
+                      AdornmentIcon="@Icons.Material.Filled.Search" />
 
-                        <MudCardMedia Image="@projeto.ImageUrl" />
-                    }
-
-                    <MudCardContent Style="flex-grow: 1;">
-                        <MudText Typo="Typo.h6" Class="font-bold">@projeto.Nome</MudText>
-                        <MudText Typo="Typo.body2" Class="mt-2">@projeto.Descricao</MudText>
-                    </MudCardContent>
-
-                    <MudCardActions>
-                        @if (!string.IsNullOrWhiteSpace(projeto.Link))
+        <MudGrid GutterSize="3" Class="d-flex flex-wrap align-stretch">
+            @foreach (var projeto in Filters)
+            {
+                <MudItem xs="12" sm="6" md="4" lg="3">
+                    <MudCard Style="height: 100%; display: flex; flex-direction: column; background-color:#2B323D; color:white" Class="hover-scale transition">
+                        @if (!string.IsNullOrWhiteSpace(projeto.ImageUrl))
                         {
-                            <MudButton StartIcon="@Icons.Custom.Brands.LinkedIn" IconColor="Color.Primary" Target="_blank" Href="@projeto.Link"
-                                       Color="Color.Primary" Variant="Variant.Filled" Size="Size.Small">
-                                Ver projeto
-                            </MudButton>
+
+                            <MudCardMedia Image="@projeto.ImageUrl" />
                         }
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
-        }
-    </MudGrid>
+
+                        <MudCardContent Style="flex-grow: 1;">
+                            <MudText Typo="Typo.h6" Class="font-bold">@projeto.Nome</MudText>
+                            <MudText Typo="Typo.body2" Class="mt-2">@projeto.Descricao</MudText>
+                        </MudCardContent>
+
+                        <MudCardActions>
+                            @if (!string.IsNullOrWhiteSpace(projeto.Link))
+                            {
+                                <MudButton StartIcon="@Icons.Custom.Brands.LinkedIn" IconColor="Color.Primary" Target="_blank" Href="@projeto.Link"
+                                           Color="Color.Primary" Variant="Variant.Filled" Size="Size.Small">
+                                    Ver projeto
+                                </MudButton>
+                            }
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+
+    </MudPaper>
 
 </MudContainer>
 @code {
