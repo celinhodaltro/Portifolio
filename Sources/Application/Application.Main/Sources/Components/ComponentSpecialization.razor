@@ -18,7 +18,7 @@
 
                         <MudText Typo="Typo.caption" Style="color:#00ffaa">
                             <MudIcon Icon="@Icons.Material.Filled.Star" Size="Size.Small" />
-                             @GetSeniority(skill)
+                            @GetSeniority(skill)
                         </MudText>
 
 
@@ -37,16 +37,10 @@
 
 @code {
 
-    public class Skill
-    {
-        public string Name { get; set; } = string.Empty;
-        public int Level { get; set; } = 0;
-        public string Duration { get; set; } = "0 months";  // Adicionando a propriedade de duração
-    }
 
     private List<Skill> Skills = new()
     {
-        new Skill { Name = ".NET", Level = 85, Duration = "4 years" },
+        new Skill { Name = "ASP.NET", Level = 85, Duration = "4 years" },
         new Skill { Name = "Blazor", Level = 55, Duration = "3 years" },
         new Skill { Name = "Angular", Level = 50, Duration = "4 years" },
         new Skill { Name = "JavaScript", Level = 30, Duration = "4 years" },
@@ -57,7 +51,6 @@
 
     private string GetSeniority(Skill skill)
     {
-        // Extrai número de anos ou meses da string
         int durationInMonths = 0;
 
         if (skill.Duration.Contains("year"))
@@ -84,3 +77,19 @@
 
 
 }
+
+
+<style>
+    .skill-card {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(6px);
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2);
+        }
+</style>
