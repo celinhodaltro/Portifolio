@@ -7,7 +7,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    background: url('Portifolio/img/background.png') center/cover no-repeat fixed;
+    background: url('/img/background.png') center/cover no-repeat fixed;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6, p, a, button {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('/Portifolio/img/background-loading.png');
+    background-image: url('/images/background-loading.png'); /* Caminho da sua imagem */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
