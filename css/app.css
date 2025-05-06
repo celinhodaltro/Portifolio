@@ -7,7 +7,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    background: url('/img/background.png') center/cover no-repeat fixed;
+    background: url('../img/background-loading.png') center/cover no-repeat fixed;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
