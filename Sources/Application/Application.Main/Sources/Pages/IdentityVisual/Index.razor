@@ -1,0 +1,86 @@
+﻿@page "/projects"
+@inject NavigationManager Navigation;
+
+<MudContainer MaxWidth="MaxWidth.False" Class="px-4 font-sans">
+    <MudPaper Style="background-color:#1E1E2F; padding:50px" Elevation="3" Class="rounded-xl">
+
+        <MudText Typo="Typo.h4" Class="mb-4 font-bold text-center text-white">Meus Projetos</MudText>
+
+        <MudTextField @bind-Value="_searchTerm" Variant="Variant.Outlined"
+                      Class="mb-6 w-full sm:w-1/2" Style="color:white" Placeholder="Filtrar por nome" Adornment="Adornment.End"
+                      AdornmentIcon="@Icons.Material.Filled.Search" />
+
+        <MudGrid GutterSize="3" Class="d-flex flex-wrap align-stretch">
+            @foreach (var projeto in Filters)
+            {
+                <MudItem xs="12" sm="6" md="4" lg="3">
+                    <MudCard Style="height: 100%; display: flex; flex-direction: column; background-color:#2B323D; color:white" Class="hover-scale transition">
+                        @if (!string.IsNullOrWhiteSpace(projeto.ImageUrl))
+                        {
+
+                            <MudCardMedia Image="@projeto.ImageUrl" />
+                        }
+
+                        <MudCardContent Style="flex-grow: 1;">
+                            <MudText Typo="Typo.h6" Class="font-bold">@projeto.Nome</MudText>
+                            <MudText Typo="Typo.body2" Class="mt-2">@projeto.Descricao</MudText>
+                        </MudCardContent>
+
+                        <MudCardActions>
+                            @if (!string.IsNullOrWhiteSpace(projeto.Link))
+                            {
+                                <MudButton StartIcon="@Icons.Custom.Brands.LinkedIn" IconColor="Color.Primary" Target="_blank" Href="@projeto.Link"
+                                           Color="Color.Primary" Variant="Variant.Filled" Size="Size.Small">
+                                    Ver projeto
+                                </MudButton>
+                            }
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+
+    </MudPaper>
+
+</MudContainer>
+@code {
+    private string _searchTerm = "";
+    private List<Projeto> Projetos = new();
+
+    private IEnumerable<Projeto> Filters =>
+        string.IsNullOrWhiteSpace(_searchTerm)
+            ? Projetos
+            : Projetos.Where(p => p.Nome.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
+
+    protected override void OnInitialized()
+    {
+        Projetos = new List<Projeto>
+        {
+            new Projeto("Ursulla Bot", "Um bot projetado para organizar raids de maneira eficiente, em uso ativo em diversos servidores!"),
+            new Projeto("Portifolio", "Site desenvolvido em Blazor, exibindo todas as informações relevantes sobre minha carreira profissional.",
+                        "https://github.com/celinhodaltro/Portifolio"),
+            new Projeto("Invoice Project", "Projeto desenvolvido para um teste de vaga, sendo amplamente elogiado pela sua qualidade e funcionalidade.",
+                        "https://github.com/celinhodaltro/ProjetoFatura")
+        };
+        foreach (var projeto in Projetos)
+        {
+            projeto.ImageUrl = $"{Navigation.BaseUri}img/projects/{projeto.Nome}.png";
+        }
+    }
+
+    private class Projeto
+    {
+        public Projeto(string nome, string descricao, string? link = null, string? imageUrl = null)
+        {
+            Nome = nome;
+            Descricao = descricao;
+            Link = link;
+            ImageUrl = imageUrl;
+        }
+
+        public string Nome { get; set; }
+        public string Descricao { get; set; }
+        public string? Link { get; set; }
+        public string? ImageUrl { get; set; }
+    }
+}
