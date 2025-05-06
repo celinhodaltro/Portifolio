@@ -1,6 +1,6 @@
 # Portfólio Pessoal - Blazor + MudBlazor
 
-Este repositório contém meu portfólio pessoal desenvolvido com **Blazor** e **MudBlazor**, utilizando o **.NET 8**. O objetivo é apresentar meus projetos, habilidades e experiências de forma interativa e moderna.
+Este repositório contém meu portfólio pessoal desenvolvido com **Blazor** e **MudBlazor**, utilizando o **.NET 9**. O objetivo é apresentar meus projetos, habilidades e experiências de forma interativa e moderna.
 
 ## 🚀 Tecnologias Utilizadas
 
