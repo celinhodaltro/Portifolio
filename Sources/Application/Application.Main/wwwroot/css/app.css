@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6, p, a, button {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('/Portifolio/img/background-loading.png'); /* Caminho da sua imagem */
+    background-image: url('/Portifolio/img/background-loading.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
