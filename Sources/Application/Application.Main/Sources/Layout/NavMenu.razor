@@ -8,20 +8,6 @@
         @onclick="ToggleMenu" />
 
 
-<MudFab StartIcon="@Icons.Material.Filled.ContactPhone"
-        Class="floating-contact-button"
-        Size="Size.Medium"
-        Style="color:white; background-color:#1E1E2F"
-        OnClick="OpenContatoPopup" />
-
-
-<MudFab StartIcon="@Icons.Material.Filled.Download"
-        Class="floating-cv-button"
-        Size="Size.Medium"
-        Style="color:white; background-color:#1E1E2F"
-        OnClick="DownloadCV">
-
-</MudFab>
 
 
 
@@ -32,7 +18,7 @@
            OverlayAutoClose="true"
            Variant="@DrawerVariant.Temporary"
            Anchor="Anchor.Right"
-           Style="background-color:#1E1E2F"
+           Style="background: rgba(255, 255, 255, 0.09); border-radius: 16px 0px 0px 16px; backdrop-filter: blur(6px); border: 1p solid rgba(255, 255, 255, 0.1);"
            Elevation="1">
     <MudDrawerHeader>
         <MudText Typo="Typo.h6" Class="mb-2" Style="flex-grow: 1; color:white">
@@ -54,12 +40,13 @@
                 <MudItem xs="12" sm="6">
                     <MudPaper Class="d-flex flex-column align-center justify-center pa-2 cursor-pointer"
                               Style="min-height: 120px; max-height:120px; background-color:#2B323D"
-                              @onclick="@(() => NavigateTo(item.Route))">
+                              @onclick="@(() => HandleMenuItemClick(item.Route))">
                         <MudIcon Icon="@item.Icon" Size="Size.Large" Style="color:white" />
                         <MudText Class="text-white" Typo="Typo.subtitle1" Align="Align.Center">@item.Label</MudText>
                     </MudPaper>
                 </MudItem>
             }
+
         </MudGrid>
 
     </MudNavMenu>
@@ -102,8 +89,29 @@
         new(Icons.Material.Filled.School, "Experiencia", "experiences"),
         new(Icons.Material.Filled.DesignServices, "Identidade visual", "IdentityVisual"),
         //new(Icons.Material.Filled.LibraryBooks, "Cursos", "courses"),
-        new(Icons.Material.Filled.SettingsSystemDaydream, "Projetos", "projects")
+        new(Icons.Material.Filled.SettingsSystemDaydream, "Projetos", "projects"),
+        new(Icons.Material.Filled.ContactPhone, "Meu Contato", "contact"),
+        new(Icons.Material.Filled.Download, "Curriculo", "download"),
     };
+
+    private async Task HandleMenuItemClick(string route)
+    {
+        isOpen = false;
+
+        switch (route.ToLower())
+        {
+            case "download":
+                await DownloadCV();
+                break;
+            case "contact":
+                await OpenContatoPopup();
+                break;
+            default:
+                NavigateTo(route);
+                break;
+        }
+    }
+
 
 
 
