@@ -4,37 +4,48 @@
 <MudContainer MaxWidth="MaxWidth.False" Class="px-4 font-sans">
     <MudPaper Class="pa-6" Style="background: rgba(255, 255, 255, 0.09); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1);">
 
-        <MudText Typo="Typo.h4" Class="mb-4 font-bold text-center text-white">Meus Projetos</MudText>
+        <MudText Typo="Typo.h4" Class="mb-4 font-bold text-center text-white">Meus Projects</MudText>
 
         <MudTextField @bind-Value="_searchTerm" Variant="Variant.Outlined"
                       Class="mb-6 w-full sm:w-1/2" Style="color:white" Placeholder="Filtrar por nome" Adornment="Adornment.End"
                       AdornmentIcon="@Icons.Material.Filled.Search" />
 
         <MudGrid GutterSize="3" Class="d-flex flex-wrap align-stretch">
-            @foreach (var projeto in Filters)
+            @foreach (var Project in Filters)
             {
                 <MudItem xs="12" sm="6" md="4" lg="3">
-                    <MudCard Style="height: 100%; display: flex; flex-direction: column; background-color:#2B323D; color:white" Class="hover-scale transition">
-                        @if (!string.IsNullOrWhiteSpace(projeto.ImageUrl))
+                <MudCard Style="height: 100%; display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.09); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1); color: white" Class="hover-scale transition">
+                        @if (!string.IsNullOrWhiteSpace(Project.ImageUrl))
                         {
-
-                            <MudCardMedia Image="@projeto.ImageUrl" />
+                            <MudCardMedia Image="@Project.ImageUrl" />
                         }
 
                         <MudCardContent Style="flex-grow: 1;">
-                            <MudText Typo="Typo.h6" Class="font-bold">@projeto.Nome</MudText>
-                            <MudText Typo="Typo.body2" Class="mt-2">@projeto.Descricao</MudText>
-                        </MudCardContent>
+                            <MudText Align="Align.Center" Typo="Typo.h6" Class="font-bold">@Project.Nome</MudText>
+                            <MudDivider Class="my-1" />
 
+                            <div class="d-flex justify-center my-2">
+                                <MudChip T="string" Color="@(Project.Status == "Em desenvolvimento" ? Color.Warning : Color.Success)"
+                                         Variant="Variant.Filled"
+                                         Size="Size.Small">
+                                    @Project.Status
+                                </MudChip>
+                            </div>
+                            <MudDivider Class="my-1" />
+                            <MudText Typo="Typo.body2" Class="mt-2">@Project.Descricao</MudText>
+
+                        </MudCardContent>
                         <MudCardActions>
-                            @if (!string.IsNullOrWhiteSpace(projeto.Link))
+
+                            @if (!string.IsNullOrWhiteSpace(Project.Link))
                             {
-                                <MudButton StartIcon="@Icons.Custom.Brands.GitHub" IconColor="Color.Primary" Target="_blank" Href="@projeto.Link"
+                                <MudButton StartIcon="@Icons.Custom.Brands.GitHub" IconColor="Color.Primary" Target="_blank" Href="@Project.Link"
                                            Color="Color.Dark" Variant="Variant.Filled" Size="Size.Small">
-                                    Ver projeto
+                                    Github
                                 </MudButton>
                             }
                         </MudCardActions>
+
                     </MudCard>
                 </MudItem>
             }
@@ -43,46 +54,38 @@
     </MudPaper>
 
 </MudContainer>
+
+
 @code {
     private string _searchTerm = "";
-    private List<Projeto> Projetos = new();
+    private List<Project> Projects = new();
 
-    private IEnumerable<Projeto> Filters =>
+    private IEnumerable<Project> Filters =>
         string.IsNullOrWhiteSpace(_searchTerm)
-            ? Projetos
-            : Projetos.Where(p => p.Nome.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
+            ? Projects
+            : Projects.Where(p => p.Nome.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
 
     protected override void OnInitialized()
     {
-        Projetos = new List<Projeto>
+        Projects = new List<Project>
         {
-            new Projeto("Ursulla Bot", "Um bot projetado para organizar raids de maneira eficiente, em uso ativo em diversos servidores!"),
-            new Projeto("Portifolio", "Site desenvolvido em Blazor, exibindo todas as informações relevantes sobre minha carreira profissional.",
-                        "https://github.com/celinhodaltro/Portifolio"),
-            new Projeto("Invoice Project", "Projeto desenvolvido para um teste de vaga, sendo amplamente elogiado pela sua qualidade e funcionalidade.",
-                        "https://github.com/celinhodaltro/ProjetoFatura"),
-            new Projeto("User Register", "Projeto console simples para registro e listagem de usuarios.",
-                        "https://github.com/celinhodaltro/UserRegister")
+            new Project("Ursulla Bot", "Um bot projetado para organizar raids de maneira eficiente, em uso ativo em diversos servidores!", status: "Concluído"),
+            new Project("Portifolio", "Site desenvolvido em Blazor, exibindo todas as informações relevantes sobre minha carreira profissional.",
+                        "https://github.com/celinhodaltro/Portifolio", status: "Em desenvolvimento"),
+            new Project("Invoice Project", "Project desenvolvido para um teste de vaga, sendo amplamente elogiado pela sua qualidade e funcionalidade.",
+                        "https://github.com/celinhodaltro/ProjectFatura", status: "Concluído"),
+            new Project("User Register", "Project console simples para registro e listagem de usuarios.",
+                        "https://github.com/celinhodaltro/UserRegister", status: "Concluído"),
+            new Project("Vinculo", "Projeto OpenSource que tem como objetivo voltada à centralização e orquestração de dados sensíveis do cidadão em contextos de governança pública.",
+                        "https://github.com/celinhodaltro/Vinculo", status: "Em desenvolvimento")
         };
-        foreach (var projeto in Projetos)
+
+        foreach (var Project in Projects)
         {
-            projeto.ImageUrl = $"{Navigation.BaseUri}img/projects/{projeto.Nome}.png";
+            Project.ImageUrl = $"{Navigation.BaseUri}img/projects/{Project.Nome}.png";
         }
     }
 
-    private class Projeto
-    {
-        public Projeto(string nome, string descricao, string? link = null, string? imageUrl = null)
-        {
-            Nome = nome;
-            Descricao = descricao;
-            Link = link;
-            ImageUrl = imageUrl;
-        }
 
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public string? Link { get; set; }
-        public string? ImageUrl { get; set; }
-    }
 }
+
