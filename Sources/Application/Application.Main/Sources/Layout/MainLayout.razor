@@ -1,4 +1,4 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @inject NavigationManager Navigation
 
 <MudThemeProvider />
@@ -6,26 +6,11 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<NavMenu/>
+<PageTitle>Portfólio - João Marcelo Daltro Marques</PageTitle>
 
-<PageTitle>Portifolio - Joao Marcelo Daltro Marques</PageTitle>
-@if (IsHome)
-{
-    @Body
-}
-else
-{
-
-    <MudContainer Class="layout-container glassmorphism ">
-        <MudMainContent Class="main-content">
-            @Body
-        </MudMainContent>
-    </MudContainer>
-}
-
-
-
+@* Removido o NavMenu para criar uma landing page única *@
+@Body
 
 @code {
-    private bool IsHome => Navigation.Uri.EndsWith("/") || Navigation.Uri.Contains("/home");
+    // Layout simplificado para landing page
 }

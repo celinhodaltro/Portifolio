@@ -1,0 +1,185 @@
+@using Application.Main.Sources.Components.Dialogs
+
+<div id="contact" class="section-contact">
+    <MudText Class="mb-5 text-white" Align="Align.Center" Typo="Typo.h4">CONTATO</MudText>
+    <MudDivider Class="mb-5" />
+    
+    <MudGrid>
+        <MudItem xs="12" md="6">
+            <MudText Typo="Typo.h6" Class="text-white mb-4">Entre em contato</MudText>
+            <MudText Typo="Typo.body1" Class="text-white mb-4">
+                Estou sempre aberto a novas oportunidades e projetos interessantes. 
+                Vamos conversar sobre como posso contribuir com sua equipe ou projeto!
+            </MudText>
+            
+            <div class="contact-info">
+                <div class="contact-item d-flex align-items-center mb-3">
+                    <MudIcon Icon="@Icons.Material.Filled.Email" Class="me-3" Color="Color.Primary" />
+                    <MudText Class="text-white">joaomarcelodaltro@gmail.com</MudText>
+                </div>
+                
+                <div class="contact-item d-flex align-items-center mb-3">
+                    <MudIcon Icon="@Icons.Material.Filled.Link" Class="me-3" Color="Color.Primary" />
+                    <MudLink Href="https://linkedin.com/in/joaomarcelodaltro" Target="_blank" Class="text-white">
+                        linkedin.com/in/joaomarcelodaltro
+                    </MudLink>
+                </div>
+                
+                <div class="contact-item d-flex align-items-center mb-3">
+                    <MudIcon Icon="@Icons.Material.Filled.Code" Class="me-3" Color="Color.Primary" />
+                    <MudLink Href="https://github.com/celinhodaltro" Target="_blank" Class="text-white">
+                        github.com/celinhodaltro
+                    </MudLink>
+                </div>
+                
+                <div class="contact-item d-flex align-items-center mb-3">
+                    <MudIcon Icon="@Icons.Material.Filled.LocationOn" Class="me-3" Color="Color.Primary" />
+                    <MudText Class="text-white">Salvador, Bahia - Brasil</MudText>
+                </div>
+            </div>
+        </MudItem>
+        
+        <MudItem xs="12" md="6">
+            <MudPaper Class="pa-4" Style="background: rgba(255, 255, 255, 0.05); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <MudText Typo="Typo.h6" Class="text-white mb-4">Envie uma mensagem</MudText>
+                
+                <MudForm @ref="form" @bind-IsValid="@success">
+                    <MudTextField @bind-Value="contactForm.Name" 
+                                  Label="Nome" 
+                                  Variant="Variant.Outlined" 
+                                  Required="true"
+                                  Class="mb-3 contact-field" />
+                    
+                    <MudTextField @bind-Value="contactForm.Email" 
+                                  Label="Email" 
+                                  Variant="Variant.Outlined" 
+                                  Required="true"
+                                  Class="mb-3 contact-field" />
+                    
+                    <MudTextField @bind-Value="contactForm.Subject" 
+                                  Label="Assunto" 
+                                  Variant="Variant.Outlined" 
+                                  Required="true"
+                                  Class="mb-3 contact-field" />
+                    
+                    <MudTextField @bind-Value="contactForm.Message" 
+                                  Label="Mensagem" 
+                                  Variant="Variant.Outlined" 
+                                  Lines="4"
+                                  Required="true"
+                                  Class="mb-3 contact-field" />
+                    
+                    <MudButton Variant="Variant.Filled" 
+                               Color="Color.Primary" 
+                               Size="Size.Large"
+                               StartIcon="@Icons.Material.Filled.Send"
+                               OnClick="SendMessage"
+                               FullWidth="true">
+                        Enviar Mensagem
+                    </MudButton>
+                </MudForm>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+    
+    <MudDivider Class="my-5" />
+    
+    <div class="text-center">
+        <MudButton Variant="Variant.Outlined" 
+                   Color="Color.Primary" 
+                   Size="Size.Large"
+                   StartIcon="@Icons.Material.Filled.Download"
+                   OnClick="DownloadCV"
+                   Class="me-3">
+            Download CV
+        </MudButton>
+        
+        <MudButton Variant="Variant.Filled" 
+                   Color="Color.Secondary" 
+                   Size="Size.Large"
+                   StartIcon="@Icons.Material.Filled.ContactPhone"
+                   OnClick="OpenContactDialog">
+            Contato Rápido
+        </MudButton>
+    </div>
+</div>
+
+<style>
+    .contact-field .mud-input-control {
+        color: white !important;
+    }
+    
+    .contact-field .mud-input-control .mud-input {
+        color: white !important;
+    }
+    
+    .contact-field .mud-input-label {
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    .contact-item {
+        transition: transform 0.2s ease;
+    }
+    
+    .contact-item:hover {
+        transform: translateX(5px);
+    }
+</style>
+
+@code {
+    [Inject]
+    private IDialogService? dialogService { get; set; }
+    
+    [Inject]
+    private ISnackbar? snackbar { get; set; }
+    
+    [Inject]
+    IJSRuntime? JS { get; set; }
+    
+    [Inject]
+    NavigationManager? Navigation { get; set; }
+
+    private MudForm form;
+    private bool success;
+    private ContactForm contactForm = new();
+
+    private async Task SendMessage()
+    {
+        await form.Validate();
+        
+        if (success)
+        {
+            // Aqui você pode implementar o envio do email
+            // Por exemplo, usando um serviço de email ou API
+            
+            snackbar?.Add("Mensagem enviada com sucesso! Entrarei em contato em breve.", Severity.Success);
+            contactForm = new(); // Reset form
+        }
+        else
+        {
+            snackbar?.Add("Por favor, preencha todos os campos obrigatórios.", Severity.Error);
+        }
+    }
+
+    private async Task DownloadCV()
+    {
+        var pdfPath = $"{Navigation?.BaseUri}docs/curriculo/Curriculo.pdf";
+        await JS.InvokeVoidAsync("downloadFile", pdfPath, "Curriculo - João Marcelo Daltro Marques.pdf");
+        snackbar?.Add("Obrigado por baixar meu currículo! 😁", Severity.Success);
+    }
+
+    private async Task OpenContactDialog()
+    {
+        var parameters = new DialogParameters();
+        var options = new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true, NoHeader = true };
+        await dialogService.ShowAsync<DialogContact>("Contato", parameters, options);
+    }
+
+    public class ContactForm
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Subject { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+    }
+}

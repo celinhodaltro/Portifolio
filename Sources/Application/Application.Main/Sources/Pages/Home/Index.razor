@@ -1,10 +1,10 @@
-﻿@page "/"
+@page "/"
 @using Application.Main.Sources.Pages.Home.Sections
 
 <MudContainer MaxWidth="MaxWidth.False" Class="px-0 font-sans">
 
-    <!-- Bio Section -->
-    <section class="section section-full-height text-white d-flex align-center justify-center p-4">
+    <!-- Hero Section - Bio e Skills -->
+    <section id="home" class="section section-full-height text-white d-flex align-center justify-center p-4">
         <MudContainer Class="text-center">
             <MudPaper Class="pa-6" Style="background: rgba(255, 255, 255, 0.09); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1);">
                 <Bio />
@@ -14,13 +14,103 @@
         </MudContainer>
     </section>
 
+    <!-- Experience Section -->
+    <section id="experience" class="section section-full-height text-white d-flex align-center justify-center p-4">
+        <MudContainer>
+            <MudPaper Class="pa-6" Style="background: rgba(255, 255, 255, 0.09); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <Experience />
+            </MudPaper>
+        </MudContainer>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section section-full-height text-white d-flex align-center justify-center p-4">
+        <MudContainer>
+            <MudPaper Class="pa-6" Style="background: rgba(255, 255, 255, 0.09); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <Projects />
+            </MudPaper>
+        </MudContainer>
+    </section>
+
+    <!-- Identity Visual Section -->
+    <section id="identity" class="section section-full-height text-white d-flex align-center justify-center p-4">
+        <MudContainer>
+            <MudPaper Class="pa-6" Style="background: rgba(255, 255, 255, 0.09); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <IdentityVisual />
+            </MudPaper>
+        </MudContainer>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section section-full-height text-white d-flex align-center justify-center p-4">
+        <MudContainer>
+            <MudPaper Class="pa-6" Style="background: rgba(255, 255, 255, 0.09); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <Contact />
+            </MudPaper>
+        </MudContainer>
+    </section>
+
 </MudContainer>
 
+<!-- Floating Navigation -->
+<div class="floating-nav">
+    <MudFab StartIcon="@Icons.Material.Filled.Home"
+           Size="Size.Small"
+           Class="nav-button"
+           Style="color:white; background-color:#1E1E2F; margin-bottom: 8px;"
+           Title="Início"
+           @onclick='() => ScrollToSection("home")' />
+    
+    <MudFab StartIcon="@Icons.Material.Filled.School"
+           Size="Size.Small"
+           Class="nav-button"
+           Style="color:white; background-color:#1E1E2F; margin-bottom: 8px;"
+           Title="Experiência"
+           @onclick='() => ScrollToSection("experience")' />
+    
+    <MudFab StartIcon="@Icons.Material.Filled.SettingsSystemDaydream"
+           Size="Size.Small"
+           Class="nav-button"
+           Style="color:white; background-color:#1E1E2F; margin-bottom: 8px;"
+           Title="Projetos"
+           @onclick='() => ScrollToSection("projects")' />
+    
+    <MudFab StartIcon="@Icons.Material.Filled.DesignServices"
+           Size="Size.Small"
+           Class="nav-button"
+           Style="color:white; background-color:#1E1E2F; margin-bottom: 8px;"
+           Title="Design"
+           @onclick='() => ScrollToSection("identity")' />
+    
+    <MudFab StartIcon="@Icons.Material.Filled.ContactPhone"
+           Size="Size.Small"
+           Class="nav-button"
+           Style="color:white; background-color:#1E1E2F;"
+           Title="Contato"
+           @onclick='() => ScrollToSection("contact")' />
+</div>
+
+<!-- Scroll to Top Button -->
+<MudFab StartIcon="@Icons.Material.Filled.KeyboardArrowUp"
+        Size="Size.Medium"
+        Class="scroll-to-top"
+        Style="color:white; background-color:#1E1E2F"
+        @onclick="ScrollToTop" />
+
 <style>
-
-
     .section {
         padding: 2rem 1rem;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .section-full-height {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .shadow-inner {
@@ -35,4 +125,87 @@
         transform: scale(1.03);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
+
+    .floating-nav {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1100;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nav-button {
+        opacity: 0.8;
+        transition: opacity 0.3s ease, transform 0.2s ease;
+    }
+
+    .nav-button:hover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    .scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 1100;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    .scroll-to-top:hover {
+        opacity: 1;
+    }
+
+    /* Smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Section spacing adjustments for mobile */
+    @@media (max-width: 768px) {
+        .section {
+            min-height: auto;
+            padding: 1rem 0.5rem;
+        }
+        
+        .floating-nav {
+            bottom: 10px;
+            right: 10px;
+        }
+        
+        .scroll-to-top {
+            bottom: 10px;
+            left: 10px;
+        }
+    }
 </style>
+
+@code {
+    [Inject]
+    IJSRuntime? JS { get; set; }
+
+    private async Task ScrollToSection(string sectionId)
+    {
+        await JS.InvokeVoidAsync("scrollToSection", sectionId);
+    }
+
+    private async Task ScrollToTop()
+    {
+        await JS.InvokeVoidAsync("scrollToTop");
+    }
+}
+
+<script>
+    window.scrollToSection = (sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
+
+    window.scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+</script>

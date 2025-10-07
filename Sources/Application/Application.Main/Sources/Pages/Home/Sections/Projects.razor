@@ -1,0 +1,124 @@
+<div id="projects" class="section-projects">
+    <MudText Class="mb-5 text-white" Align="Align.Center" Typo="Typo.h4">PROJETOS</MudText>
+    <MudDivider Class="mb-5" />
+    
+    <MudGrid>
+        @foreach (var project in ProjectsList)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <MudCard Class="project-card hover-elevation-8 transition" 
+                         Style="background: rgba(255, 255, 255, 0.09); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1); height: 100%;">
+                    <MudCardMedia Image="@project.Image" Height="200" />
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6" Class="text-white mb-2">@project.Title</MudText>
+                        <MudText Typo="Typo.body2" Class="text-white mb-3">@project.Description</MudText>
+                        
+                        <div class="d-flex flex-wrap gap-1 mb-3">
+                            @foreach (var tech in project.Technologies)
+                            {
+                                <MudChip T="string" Size="Size.Small" Color="Color.Primary" Text="@tech" />
+                            }
+                        </div>
+                    </MudCardContent>
+                    <MudCardActions Class="d-flex justify-space-between">
+                        @if (!string.IsNullOrEmpty(project.DemoUrl))
+                        {
+                            <MudButton Variant="Variant.Text" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Launch" 
+                                       Href="@project.DemoUrl" Target="_blank">
+                                Demo
+                            </MudButton>
+                        }
+                        @if (!string.IsNullOrEmpty(project.GitHubUrl))
+                        {
+                            <MudButton Variant="Variant.Text" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Code" 
+                                       Href="@project.GitHubUrl" Target="_blank">
+                                GitHub
+                            </MudButton>
+                        }
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+</div>
+
+<style>
+    .project-card {
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 212, 255, 0.2);
+    }
+</style>
+
+@code {
+    private List<ProjectModel> ProjectsList = new()
+    {
+        new()
+        {
+            Title = "Sistema de Geoprocessamento",
+            Description = "Sistema completo para análise e visualização de dados geoespaciais desenvolvido com .NET e PostgreSQL.",
+            Image = "img/projects/geoprocessing.jpg",
+            Technologies = new[] { ".NET", "Blazor", "PostgreSQL", "GIS" },
+            DemoUrl = "",
+            GitHubUrl = ""
+        },
+        new()
+        {
+            Title = "API de Gestão Financeira",
+            Description = "API REST para controle financeiro com autenticação JWT e integração com bancos de dados.",
+            Image = "img/projects/financial-api.jpg",
+            Technologies = new[] { "ASP.NET", "SQL Server", "JWT", "Swagger" },
+            DemoUrl = "",
+            GitHubUrl = ""
+        },
+        new()
+        {
+            Title = "Dashboard Analytics",
+            Description = "Dashboard interativo para visualização de métricas e KPIs empresariais em tempo real.",
+            Image = "img/projects/dashboard.jpg",
+            Technologies = new[] { "Angular", "Chart.js", "TypeScript", "Bootstrap" },
+            DemoUrl = "",
+            GitHubUrl = ""
+        },
+        new()
+        {
+            Title = "Sistema de Claims",
+            Description = "Plataforma para gestão de sinistros e reclamações com workflow automatizado.",
+            Image = "img/projects/claims-system.jpg",
+            Technologies = new[] { ".NET", "Angular", "SQL Server", "DevOps" },
+            DemoUrl = "",
+            GitHubUrl = ""
+        },
+        new()
+        {
+            Title = "Portfólio Pessoal",
+            Description = "Site pessoal desenvolvido com Blazor WebAssembly e design responsivo.",
+            Image = "img/projects/portfolio.jpg",
+            Technologies = new[] { "Blazor", "MudBlazor", "CSS3", "HTML5" },
+            DemoUrl = "",
+            GitHubUrl = "https://github.com/celinhodaltro/Portifolio"
+        },
+        new()
+        {
+            Title = "Automação DevOps",
+            Description = "Pipeline de CI/CD completo com testes automatizados e deploy em Azure.",
+            Image = "img/projects/devops.jpg",
+            Technologies = new[] { "Azure DevOps", "Docker", "Kubernetes", "GitHub Actions" },
+            DemoUrl = "",
+            GitHubUrl = ""
+        }
+    };
+
+    public class ProjectModel
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Image { get; set; } = string.Empty;
+        public string[] Technologies { get; set; } = Array.Empty<string>();
+        public string DemoUrl { get; set; } = string.Empty;
+        public string GitHubUrl { get; set; } = string.Empty;
+    }
+}
