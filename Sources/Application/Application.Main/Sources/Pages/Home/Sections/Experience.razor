@@ -3,8 +3,8 @@
 <div id="experience" class="section-experience">
     <MudText Class="mb-5 text-white" Align="Align.Center" Typo="Typo.h4">EXPERIÊNCIAS</MudText>
     <MudDivider Class="mb-5" />
-    
-    <MudTimeline TimelineOrientation="TimelineOrientation.Vertical" Style="color:white">
+
+    <MudTimeline TimelineOrientation="TimelineOrientation.Horizontal" Style="color:white; margin-bottom:70px; margin-top:70px;">
         @foreach (var exp in Experiences.Select((value, index) => new { value, index }))
         {
             var align = TimelineAlign.End;
@@ -56,12 +56,13 @@
     {
         new()
         {
-            Company = "Conder",
-            Title = "Software Analyst",
-            CompanyImage = "img/experiences/conder.png",
-            Start = new DateTime(2024, 5, 5),
-            End = DateTime.Now,
-            Description = "Desenvolvimento de soluções geoespaciais com .NET 8/9, Blazor e Angular. Implantação da cultura DevOps na Conder, promovendo automação e integração contínua. Gerenciamento de dados geográficos e manipulação de bancos PostgreSQL e Oracle. Criação de sistemas completos, desde a concepção até a entrega final."
+            Company = "Divtech",
+            Title = "FullStack Developer",
+            CompanyImage = "img/experiences/divtech.png",
+            Start = new DateTime(2021, 5, 5),
+            End = new DateTime(2022, 5, 4),
+            Description = "Participação no desenvolvimento de aplicações com ASP.NET. Atuação na modelagem de banco de dados, desenvolvimento de funcionalidades em Angular e entrega final de sistemas em equipe.",
+            Detail = "Estagio"
         },
         new()
         {
@@ -72,16 +73,16 @@
             End = new DateTime(2024, 5, 4),
             Description = "Desenvolvimento de APIs REST com ASP.NET, criação de interfaces web com Angular. Versionamento com Git e participação em reuniões ágeis, contribuindo com entregas em equipe multidisciplinar."
         },
-        new()
+
+         new()
         {
-            Company = "Divtech",
-            Title = "FullStack Developer",
-            CompanyImage = "img/experiences/divtech.png",
-            Start = new DateTime(2021, 5, 5),
-            End = new DateTime(2022, 5, 4),
-            Description = "Participação no desenvolvimento de aplicações com ASP.NET. Atuação na modelagem de banco de dados, desenvolvimento de funcionalidades em Angular e entrega final de sistemas em equipe.",
-            Detail = "Estagio"
-        }
+            Company = "Conder",
+            Title = "Software Analyst",
+            CompanyImage = "img/experiences/conder.png",
+            Start = new DateTime(2024, 5, 5),
+            End = DateTime.Now,
+            Description = "Desenvolvimento de soluções geoespaciais com .NET 8/9, Blazor e Angular. Implantação da cultura DevOps na Conder, promovendo automação e integração contínua. Gerenciamento de dados geográficos e manipulação de bancos PostgreSQL e Oracle. Criação de sistemas completos, desde a concepção até a entrega final."
+        },
     };
 
     private async Task OpenModal(ExperienceModel experience)
