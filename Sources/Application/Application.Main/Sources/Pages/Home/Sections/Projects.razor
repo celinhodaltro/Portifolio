@@ -1,57 +1,97 @@
 <div id="projects" class="section-projects">
     <MudText Class="mb-5 text-white" Align="Align.Center" Typo="Typo.h4">PROJETOS</MudText>
     <MudDivider Class="mb-5" />
-    
-    <MudGrid>
-        @foreach (var project in ProjectsList)
+
+    <MudCarousel TData="ProjectModel"
+                 AutoCycle="false"
+                 ShowArrows="true"
+                 ShowIndicators="false"
+                 Class="project-carousel"
+                 Style="margin-top: 50px; margin-bottom:50px;">
+        @foreach (var group in ProjectsList.Chunk(4))
         {
-            <MudItem xs="12" sm="6" md="4">
-                <MudCard Class="project-card hover-elevation-8 transition" 
-                         Style="background: rgba(255, 255, 255, 0.09); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1); height: 100%;">
-                    <MudCardMedia Image="@project.Image" Height="200" />
-                    <MudCardContent>
-                        <MudText Typo="Typo.h6" Class="text-white mb-2">@project.Title</MudText>
-                        <MudText Typo="Typo.body2" Class="text-white mb-3">@project.Description</MudText>
-                        
-                        <div class="d-flex flex-wrap gap-1 mb-3">
-                            @foreach (var tech in project.Technologies)
-                            {
-                                <MudChip T="string" Size="Size.Small" Color="Color.Primary" Text="@tech" />
-                            }
-                        </div>
-                    </MudCardContent>
-                    <MudCardActions Class="d-flex justify-space-between">
-                        @if (!string.IsNullOrEmpty(project.DemoUrl))
-                        {
-                            <MudButton Variant="Variant.Text" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Launch" 
-                                       Href="@project.DemoUrl" Target="_blank">
-                                Demo
-                            </MudButton>
-                        }
-                        @if (!string.IsNullOrEmpty(project.GitHubUrl))
-                        {
-                            <MudButton Variant="Variant.Text" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Code" 
-                                       Href="@project.GitHubUrl" Target="_blank">
-                                GitHub
-                            </MudButton>
-                        }
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
+            <MudCarouselItem>
+                <div class="carousel-group">
+                    @foreach (var project in group)
+                    {
+                        <MudCard Class="project-card hover-elevation-8 transition"
+                                 Style="background: rgba(255,255,255,0.09);
+                                                border-radius: 16px;
+                                                backdrop-filter: blur(6px);
+                                                border: 1px solid rgba(255,255,255,0.1);">
+                            <img src="@project.Image"
+                                 style="width:100%;height:180px;object-fit:cover;
+                                                border-top-left-radius:16px;border-top-right-radius:16px;" />
+
+                            <MudCardContent>
+                                <MudText Typo="Typo.h6" Class="text-white mb-2">@project.Title</MudText>
+                                <MudText Typo="Typo.body2" Class="text-white mb-3">@project.Description</MudText>
+
+                                <div class="d-flex flex-wrap gap-1 mb-3">
+                                    @foreach (var tech in project.Technologies)
+                                    {
+                                        <MudChip T="string" Size="Size.Small" Color="Color.Primary" Text="@tech" />
+                                    }
+                                </div>
+                            </MudCardContent>
+
+                            <MudCardActions Class="d-flex justify-space-between">
+                                @if (!string.IsNullOrEmpty(project.DemoUrl))
+                                {
+                                    <MudButton Variant="Variant.Text" Color="Color.Primary"
+                                               StartIcon="@Icons.Material.Filled.Launch"
+                                               Href="@project.DemoUrl" Target="_blank">
+                                        Demo
+                                    </MudButton>
+                                }
+                                @if (!string.IsNullOrEmpty(project.GitHubUrl))
+                                {
+                                    <MudButton Variant="Variant.Text" Color="Color.Secondary"
+                                               StartIcon="@Icons.Material.Filled.Code"
+                                               Href="@project.GitHubUrl" Target="_blank">
+                                        GitHub
+                                    </MudButton>
+                                }
+                            </MudCardActions>
+                        </MudCard>
+                    }
+                </div>
+            </MudCarouselItem>
         }
-    </MudGrid>
+    </MudCarousel>
 </div>
 
 <style>
+    .carousel-group {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        padding: 0 16px;
+    }
+
     .project-card {
         transition: transform 0.2s ease, box-shadow 0.3s ease;
     }
 
-    .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 20px rgba(0, 212, 255, 0.2);
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.2);
+        }
+
+    @@media (max-width: 1024px) {
+        .carousel-group {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .carousel-group {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
+
+
 
 @code {
     private List<ProjectModel> ProjectsList = new()
@@ -60,7 +100,7 @@
         {
             Title = "Sistema de Geoprocessamento",
             Description = "Sistema completo para análise e visualização de dados geoespaciais desenvolvido com .NET e PostgreSQL.",
-            Image = "img/projects/geoprocessing.jpg",
+            Image = "img/projects/Portifolio.png",
             Technologies = new[] { ".NET", "Blazor", "PostgreSQL", "GIS" },
             DemoUrl = "",
             GitHubUrl = ""

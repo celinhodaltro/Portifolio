@@ -1,178 +1,34 @@
-<div id="identity-visual" class="section-identity">
-    <MudText Class="mb-5 text-white" Align="Align.Center" Typo="Typo.h4">IDENTIDADE VISUAL</MudText>
-    <MudDivider Class="mb-5" />
-    
-    <MudText Typo="Typo.body1" Class="text-white mb-5 text-center">
-        Além do desenvolvimento de software, também trabalho com design e identidade visual, 
-        criando soluções visuais que complementam a experiência digital.
-    </MudText>
-    
-    <MudGrid>
-        @foreach (var design in DesignWorks)
-        {
-            <MudItem xs="12" sm="6" md="4">
-                <MudCard Class="design-card hover-elevation-8 transition" 
-                         Style="background: rgba(255, 255, 255, 0.09); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1); height: 100%;">
-                    <MudCardMedia Image="@design.Image" Height="250" />
-                    <MudCardContent>
-                        <MudText Typo="Typo.h6" Class="text-white mb-2">@design.Title</MudText>
-                        <MudText Typo="Typo.body2" Class="text-white mb-3">@design.Description</MudText>
-                        
-                        <div class="d-flex flex-wrap gap-1 mb-3">
-                            @foreach (var tool in design.Tools)
-                            {
-                                <MudChip T="string" Size="Size.Small" Color="Color.Secondary" Text="@tool" />
-                            }
-                        </div>
-                        
-                        <MudText Typo="Typo.caption" Class="text-white">
-                            <MudIcon Icon="@Icons.Material.Filled.Category" Size="Size.Small" Class="me-1" />
-                            @design.Category
-                        </MudText>
-                    </MudCardContent>
-                    <MudCardActions>
-                        @if (!string.IsNullOrEmpty(design.ViewUrl))
-                        {
-                            <MudButton Variant="Variant.Text" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Visibility" 
-                                       Href="@design.ViewUrl" Target="_blank">
-                                Visualizar
-                            </MudButton>
-                        }
-                        <MudButton Variant="Variant.Text" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Info" 
-                                   OnClick="() => ShowDesignDetails(design)">
-                            Detalhes
-                        </MudButton>
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
-        }
-    </MudGrid>
-    
-    <div class="text-center mt-5">
-        <MudText Typo="Typo.h6" Class="text-white mb-3">Serviços de Design</MudText>
-        <MudGrid>
-            <MudItem xs="12" sm="6" md="3">
-                <div class="service-item text-center">
-                    <MudIcon Icon="@Icons.Material.Filled.Palette" Size="Size.Large" Color="Color.Primary" Class="mb-2" />
-                    <MudText Typo="Typo.subtitle1" Class="text-white">Identidade Visual</MudText>
-                </div>
-            </MudItem>
-            <MudItem xs="12" sm="6" md="3">
-                <div class="service-item text-center">
-                    <MudIcon Icon="@Icons.Material.Filled.Web" Size="Size.Large" Color="Color.Primary" Class="mb-2" />
-                    <MudText Typo="Typo.subtitle1" Class="text-white">UI/UX Design</MudText>
-                </div>
-            </MudItem>
-            <MudItem xs="12" sm="6" md="3">
-                <div class="service-item text-center">
-                    <MudIcon Icon="@Icons.Material.Filled.Print" Size="Size.Large" Color="Color.Primary" Class="mb-2" />
-                    <MudText Typo="Typo.subtitle1" Class="text-white">Material Gráfico</MudText>
-                </div>
-            </MudItem>
-            <MudItem xs="12" sm="6" md="3">
-                <div class="service-item text-center">
-                    <MudIcon Icon="@Icons.Material.Filled.BrandingWatermark" Size="Size.Large" Color="Color.Primary" Class="mb-2" />
-                    <MudText Typo="Typo.subtitle1" Class="text-white">Branding</MudText>
-                </div>
-            </MudItem>
-        </MudGrid>
-    </div>
-</div>
+@page "/IdentityVisual"
+@inject NavigationManager Navigation;
 
-<style>
-    .design-card {
-        transition: transform 0.2s ease, box-shadow 0.3s ease;
-    }
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-12 px-4">
+    <MudPaper Class="pa-6" Style="background: rgba(255, 255, 255, 0.02); border-radius: 16px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1);">
 
-    .design-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 20px rgba(0, 212, 255, 0.2);
-    }
-    
-    .service-item {
-        padding: 20px;
-        transition: transform 0.2s ease;
-    }
-    
-    .service-item:hover {
-        transform: translateY(-3px);
-    }
-</style>
+        <MudText Typo="Typo.h4" Style="color: white;">
+            <MudIcon Size="Size.Large" Icon="@Icons.Material.Filled.DesignServices"></MudIcon> Créditos e Referências Visuais
+        </MudText>
 
-@code {
-    [Inject]
-    private ISnackbar? snackbar { get; set; }
+        <MudDivider Class="my-4"></MudDivider>
 
-    private List<DesignWork> DesignWorks = new()
-    {
-        new()
-        {
-            Title = "Logo Corporativa",
-            Description = "Desenvolvimento de identidade visual completa para empresa de tecnologia.",
-            Image = "img/design/logo-corporate.jpg",
-            Tools = new[] { "Adobe Illustrator", "Photoshop", "Figma" },
-            Category = "Identidade Visual",
-            ViewUrl = ""
-        },
-        new()
-        {
-            Title = "Interface de Dashboard",
-            Description = "Design de interface para sistema de gestão empresarial com foco em usabilidade.",
-            Image = "img/design/dashboard-ui.jpg",
-            Tools = new[] { "Figma", "Adobe XD", "Sketch" },
-            Category = "UI/UX Design",
-            ViewUrl = ""
-        },
-        new()
-        {
-            Title = "Material Promocional",
-            Description = "Criação de materiais gráficos para campanha de marketing digital.",
-            Image = "img/design/promotional.jpg",
-            Tools = new[] { "Photoshop", "InDesign", "Canva" },
-            Category = "Design Gráfico",
-            ViewUrl = ""
-        },
-        new()
-        {
-            Title = "Website Responsivo",
-            Description = "Design completo de website institucional com foco em conversão.",
-            Image = "img/design/website-design.jpg",
-            Tools = new[] { "Figma", "Adobe XD", "Principle" },
-            Category = "Web Design",
-            ViewUrl = ""
-        },
-        new()
-        {
-            Title = "App Mobile Design",
-            Description = "Interface de aplicativo móvel para gestão de tarefas e produtividade.",
-            Image = "img/design/mobile-app.jpg",
-            Tools = new[] { "Figma", "Sketch", "Principle" },
-            Category = "Mobile Design",
-            ViewUrl = ""
-        },
-        new()
-        {
-            Title = "Branding Completo",
-            Description = "Desenvolvimento de marca completa incluindo logo, cores e tipografia.",
-            Image = "img/design/branding.jpg",
-            Tools = new[] { "Illustrator", "Photoshop", "InDesign" },
-            Category = "Branding",
-            ViewUrl = ""
-        }
-    };
+        <MudText Typo="Typo.body1" Class="mb-4" Style="color: white;">
+            Esta aplicação e seus elementos visuais foram fortemente inspirados na estética e nas cores do universo de <strong>Steven Universo</strong>,
+            uma obra criada por <strong>Rebecca Sugar</strong> e produzida pela <strong>Cartoon Network</strong>.
+        </MudText>
 
-    private void ShowDesignDetails(DesignWork design)
-    {
-        snackbar?.Add($"Detalhes do projeto: {design.Title} - {design.Description}", Severity.Info);
-    }
+        <MudText Typo="Typo.body1" Class="mb-4" Style="color: white;">
+            Os avatares e fundos utilizados aqui foram gerados com auxílio de <strong>Inteligência Artificial</strong>, com base em referências artísticas da série.
+            Essa escolha foi feita como forma de homenagem, buscando trazer uma atmosfera que reflita o carinho que tenho pela obra.
+        </MudText>
 
-    public class DesignWork
-    {
-        public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string Image { get; set; } = string.Empty;
-        public string[] Tools { get; set; } = Array.Empty<string>();
-        public string Category { get; set; } = string.Empty;
-        public string ViewUrl { get; set; } = string.Empty;
-    }
-}
+        <MudText Typo="Typo.body1" Class="mb-4" Style="color: white;">
+            Ressalto que não há intenção de plagiar ou obter benefício financeiro a partir do estilo visual da série. O uso é puramente artístico e feito com o
+            mais profundo <strong>respeito e admiração</strong> pela equipe criativa de Steven Universo.
+        </MudText>
+
+        <MudDivider Class="my-4" />
+
+        <MudText Typo="Typo.caption" Style="color: #cccccc;">
+            Steven Universo © Cartoon Network Studios – Todos os direitos reservados aos criadores e produtores da obra original.
+        </MudText>
+    </MudPaper>
+</MudContainer>
