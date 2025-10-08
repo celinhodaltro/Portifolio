@@ -4,49 +4,139 @@
     <MudText Class="mb-5 text-white" Align="Align.Center" Typo="Typo.h4">EXPERIÊNCIAS</MudText>
     <MudDivider Class="mb-5" />
 
-    <MudTimeline TimelineOrientation="TimelineOrientation.Horizontal" Style="color:white; margin-bottom:70px; margin-top:70px;">
-        @foreach (var exp in Experiences.Select((value, index) => new { value, index }))
-        {
-            var align = TimelineAlign.End;
+    <!-- Timeline para Desktop -->
+    <div class="timeline-desktop d-none d-md-block">
+        <MudTimeline TimelineOrientation="TimelineOrientation.Horizontal" Style="color:white; margin-bottom:70px; margin-top:70px;">
+            @foreach (var exp in Experiences.Select((value, index) => new { value, index }))
+            {
+                var align = TimelineAlign.End;
 
-            <MudTimelineItem Color="Color.Primary" Elevation="25" TimelineAlign="@align" Style="width: 100%;">
-                <MudChat ChatPosition="ChatBubblePosition.Start" Style="margin-bottom:50px;">
-                    <MudAvatar Size="Size.Large">
-                        <MudImage Fluid="true" Src="@exp.value.CompanyImage" />
-                    </MudAvatar>
+                <MudTimelineItem Color="Color.Primary" Elevation="25" TimelineAlign="@align" Style="width: 100%;">
+                    <MudChat ChatPosition="ChatBubblePosition.Start" Style="margin-bottom:50px;">
+                        <MudAvatar Size="Size.Large">
+                            <MudImage Fluid="true" Src="@exp.value.CompanyImage" />
+                        </MudAvatar>
 
-                    <MudChatBubble Class="my-1" Style="color:white; cursor: pointer;" @onclick="() => OpenModal(exp.value)">
-                        @if (!String.IsNullOrEmpty(exp.value.Company))
-                        {
+                        <MudChatBubble Class="my-1" Style="color:white; cursor: pointer;" @onclick="() => OpenModal(exp.value)">
+                            @if (!String.IsNullOrEmpty(exp.value.Company))
+                            {
+                                <div class="d-flex align-items-center mb-1">
+                                    <MudIcon Size="Size.Small" Class="me-1" Color="Color.Primary" Icon="@Icons.Material.Filled.CorporateFare" />
+                                    <span>@exp.value.Company</span>
+                                </div>
+                                <MudDivider />
+                            }
+
                             <div class="d-flex align-items-center mb-1">
-                                <MudIcon Size="Size.Small" Class="me-1" Color="Color.Primary" Icon="@Icons.Material.Filled.CorporateFare" />
-                                <span>@exp.value.Company</span>
+                                <MudIcon Size="Size.Small" Class="me-1" Color="Color.Primary" Icon="@Icons.Material.Filled.Work" />
+                                <span>@exp.value.Title</span>
                             </div>
-                            <MudDivider />
-                        }
 
-                        <div class="d-flex align-items-center mb-1">
-                            <MudIcon Size="Size.Small" Class="me-1" Color="Color.Primary" Icon="@Icons.Material.Filled.Work" />
-                            <span>@exp.value.Title</span>
-                        </div>
+                            @if (!String.IsNullOrEmpty(exp.value.Detail))
+                            {
+                                <MudDivider />
+                                <div>@exp.value.Detail</div>
+                            }
+                        </MudChatBubble>
 
-                        @if (!String.IsNullOrEmpty(exp.value.Detail))
-                        {
-                            <MudDivider />
-                            <div>@exp.value.Detail</div>
-                        }
-                    </MudChatBubble>
+                        <MudChatFooter>
+                            @exp.value.Start.ToString("dd/MM/yyyy") <MudIcon Icon="@Icons.Material.Filled.DateRange" />
+                            <MudIcon Icon="@Icons.Material.Filled.NavigateNext" />
+                            @(exp.value.End?.ToString("dd/MM/yyyy") ?? "...") <MudIcon Icon="@Icons.Material.Filled.DateRange" />
+                        </MudChatFooter>
+                    </MudChat>
+                </MudTimelineItem>
+            }
+        </MudTimeline>
+    </div>
 
-                    <MudChatFooter>
-                        @exp.value.Start.ToString("dd/MM/yyyy") <MudIcon Icon="@Icons.Material.Filled.DateRange" />
-                        <MudIcon Icon="@Icons.Material.Filled.NavigateNext" />
-                        @(exp.value.End?.ToString("dd/MM/yyyy") ?? "...") <MudIcon Icon="@Icons.Material.Filled.DateRange" />
-                    </MudChatFooter>
-                </MudChat>
-            </MudTimelineItem>
-        }
-    </MudTimeline>
+    <!-- Timeline para Mobile -->
+    <div class="timeline-mobile d-block d-md-none">
+        <MudTimeline TimelineOrientation="TimelineOrientation.Vertical" Style="color:white;">
+            @foreach (var exp in Experiences.Select((value, index) => new { value, index }))
+            {
+                <MudTimelineItem Color="Color.Primary" Elevation="15" TimelineAlign="TimelineAlign.Start">
+                    <ItemOpposite>
+                        <MudText Typo="Typo.caption" Class="text-white">
+                            @exp.value.Start.ToString("MM/yyyy") - @(exp.value.End?.ToString("MM/yyyy") ?? "Atual")
+                        </MudText>
+                    </ItemOpposite>
+                    <ItemContent>
+                        <MudCard Class="experience-card-mobile" 
+                                 Style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 16px; cursor: pointer;"
+                                 @onclick="() => OpenModal(exp.value)">
+                            <MudCardContent Class="pa-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <MudAvatar Size="Size.Medium" Class="me-3">
+                                        <MudImage Fluid="true" Src="@exp.value.CompanyImage" />
+                                    </MudAvatar>
+                                    <div>
+                                        <MudText Typo="Typo.subtitle1" Class="text-white font-weight-bold">
+                                            @exp.value.Company
+                                        </MudText>
+                                        <MudText Typo="Typo.body2" Class="text-white">
+                                            @exp.value.Title
+                                        </MudText>
+                                    </div>
+                                </div>
+                                
+                                @if (!String.IsNullOrEmpty(exp.value.Detail))
+                                {
+                                    <MudChip T="string" Size="Size.Small" Color="Color.Info" Text="@exp.value.Detail" Class="mb-2" />
+                                }
+                                
+                                <MudText Typo="Typo.caption" Class="text-white">
+                                    Toque para ver mais detalhes
+                                </MudText>
+                            </MudCardContent>
+                        </MudCard>
+                    </ItemContent>
+                </MudTimelineItem>
+            }
+        </MudTimeline>
+    </div>
 </div>
+
+<style>
+    .experience-card-mobile {
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .experience-card-mobile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+    }
+
+    .timeline-mobile .mud-timeline-item {
+        margin-bottom: 20px;
+    }
+
+    .timeline-mobile .mud-timeline-item-content {
+        padding-left: 16px;
+    }
+
+    .timeline-mobile .mud-timeline-item-opposite {
+        padding-right: 16px;
+        min-width: 80px;
+    }
+
+    /* Ajustes específicos para mobile */
+    @@media (max-width: 768px) {
+        .section-experience {
+            padding: 20px 10px;
+        }
+        
+        .timeline-mobile .mud-timeline-item-opposite {
+            min-width: 70px;
+            font-size: 0.75rem;
+        }
+        
+        .experience-card-mobile {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+</style>
 
 @code {
     [Inject]
@@ -62,7 +152,7 @@
             Start = new DateTime(2021, 5, 5),
             End = new DateTime(2022, 5, 4),
             Description = "Participação no desenvolvimento de aplicações com ASP.NET. Atuação na modelagem de banco de dados, desenvolvimento de funcionalidades em Angular e entrega final de sistemas em equipe.",
-            Detail = "Estagio"
+            Detail = "Estágio"
         },
         new()
         {
