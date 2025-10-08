@@ -23,7 +23,7 @@
                                  style="width:100%;height:180px;object-fit:cover;
                                                 border-top-left-radius:16px;border-top-right-radius:16px;" />
 
-                            <MudCardContent>
+                            <MudCardContent Class="text-center">
                                 <MudText Typo="Typo.h6" Class="text-white mb-2">@project.Title</MudText>
                                 <MudText Typo="Typo.body2" Class="text-white mb-3">@project.Description</MudText>
 
@@ -33,12 +33,11 @@
                                         <MudChip T="string" Size="Size.Small" Color="Color.Primary" Text="@tech" />
                                     }
                                 </div>
-                            </MudCardContent>
 
-                            <MudCardActions Class="d-flex justify-space-between">
+                                <MudCardActions Class="d-flex justify-space-between">
                                 @if (!string.IsNullOrEmpty(project.DemoUrl))
                                 {
-                                    <MudButton Variant="Variant.Text" Color="Color.Primary"
+                                        <MudButton Variant="Variant.Outlined" Color="Color.Primary"
                                                StartIcon="@Icons.Material.Filled.Launch"
                                                Href="@project.DemoUrl" Target="_blank">
                                         Demo
@@ -46,13 +45,14 @@
                                 }
                                 @if (!string.IsNullOrEmpty(project.GitHubUrl))
                                 {
-                                    <MudButton Variant="Variant.Text" Color="Color.Secondary"
-                                               StartIcon="@Icons.Material.Filled.Code"
+                                    <MudButton Variant="Variant.Outlined" Color="Color.Secondary"
+                                               StartIcon="@Icons.Custom.Brands.GitHub"
                                                Href="@project.GitHubUrl" Target="_blank">
                                         GitHub
                                     </MudButton>
                                 }
-                            </MudCardActions>
+                                </MudCardActions>
+                            </MudCardContent>
                         </MudCard>
                     }
                 </div>
@@ -62,18 +62,12 @@
 </div>
 
 <style>
-    .mud-carousel,
-    .mud-carousel-item,
-    .project-carousel {
-        height: auto !important;
+    .mud-carousel {
+        height: 500px !important;
         overflow: visible !important;
     }
 
-    .mud-carousel-slides {
-        height: auto !important;
-        overflow: visible !important;
-    }
-
+    /* layout padrão */
     .carousel-group {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -82,32 +76,36 @@
         align-items: stretch;
     }
 
-    .project-card {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: transform 0.2s ease, box-shadow 0.3s ease;
-    }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.2);
-        }
-
+    /* tablet */
     @@media (max-width: 1024px) {
-    .carousel-group
+        .carousel-group
     {
         grid-template-columns: repeat(2, 1fr);
     }
 
     }
 
+    /* celular */
     @@media (max-width: 768px) {
         .carousel-group
 
     {
         grid-template-columns: 1fr;
+    }
+
+    .mud-carousel {
+        height: auto !important;
+        margin-top: 40px !important;
+        margin-bottom: 40px !important;
+    }
+
+    .project-card img {
+        height: 150px !important;
+    }
+
+    .project-card {
+        margin: 0 auto;
+        max-width: 90%;
     }
 
     }
@@ -120,57 +118,46 @@
     {
         new()
         {
-            Title = "Sistema de Geoprocessamento",
-            Description = "Sistema completo para análise e visualização de dados geoespaciais desenvolvido com .NET e PostgreSQL.",
+            Title = "Meu Portifólio",
+            Description = "Esse porifólio, feito completamente com .NET usando o flamework Blazor.",
             Image = "img/projects/Portifolio.png",
-            Technologies = new[] { ".NET", "Blazor", "PostgreSQL", "GIS" },
+            Technologies = new[] { ".NET", "Blazor", "Devops"},
+            DemoUrl = "https://celinhodaltro.github.io/Portifolio/",
+            GitHubUrl = ""
+        },
+        new()
+        {
+            Title = "Ursulla Bot",
+            Description = "Um BOT para ministrar sessões de jogos no Discord, organizando valor por pessoa, classe escolhida e etc.",
+            Image = "img/projects/Ursulla Bot.png",
+            Technologies = new[] { ".NET", "NetCord", "Postgree"},
             DemoUrl = "",
             GitHubUrl = ""
         },
         new()
         {
-            Title = "API de Gestão Financeira",
-            Description = "API REST para controle financeiro com autenticação JWT e integração com bancos de dados.",
-            Image = "img/projects/financial-api.jpg",
-            Technologies = new[] { "ASP.NET", "SQL Server", "JWT", "Swagger" },
+            Title = "ExpForge",
+            Description = "Uma ferramenta CLI open source para auxiliar desenvolvedores de widgets, geoprocess do arcgis.",
+            Image = "img/projects/ExpForge.png",
+            Technologies = new[] { ".NET", "Arcgis", "React" },
+            DemoUrl = "https://celinhodaltro.github.io/ExpForge.Documentation/",
+            GitHubUrl = "https://github.com/celinhodaltro/ExpForge"
+        },
+        new()
+        {
+            Title = "Street View",
+            Description = "Um Street View para navegação de cenas 3d no Experience Builder, criado na minha atuação na Conder",
+            Image = "img/projects/StreetView.png",
+            Technologies = new[] { "Arcgis", "React", "GEO" },
             DemoUrl = "",
             GitHubUrl = ""
         },
         new()
         {
-            Title = "Dashboard Analytics",
-            Description = "Dashboard interativo para visualização de métricas e KPIs empresariais em tempo real.",
-            Image = "img/projects/dashboard.jpg",
-            Technologies = new[] { "Angular", "Chart.js", "TypeScript", "Bootstrap" },
+            Title = "Informs Devops Center",
+            Description = "Centralizador de Rotinas CI/CD do Informs (Conder).",
+            Technologies = new[] { "Devops", "CI/CD", "Runner"},
             DemoUrl = "",
-            GitHubUrl = ""
-        },
-        new()
-        {
-            Title = "Sistema de Claims",
-            Description = "Plataforma para gestão de sinistros e reclamações com workflow automatizado.",
-            Image = "img/projects/claims-system.jpg",
-            Technologies = new[] { ".NET", "Angular", "SQL Server", "DevOps" },
-            DemoUrl = "",
-            GitHubUrl = ""
-        },
-        new()
-        {
-            Title = "Portfólio Pessoal",
-            Description = "Site pessoal desenvolvido com Blazor WebAssembly e design responsivo.",
-            Image = "img/projects/portfolio.jpg",
-            Technologies = new[] { "Blazor", "MudBlazor", "CSS3", "HTML5" },
-            DemoUrl = "",
-            GitHubUrl = "https://github.com/celinhodaltro/Portifolio"
-        },
-        new()
-        {
-            Title = "Automação DevOps",
-            Description = "Pipeline de CI/CD completo com testes automatizados e deploy em Azure.",
-            Image = "img/projects/devops.jpg",
-            Technologies = new[] { "Azure DevOps", "Docker", "Kubernetes", "GitHub Actions" },
-            DemoUrl = "",
-            GitHubUrl = ""
         }
     };
 
