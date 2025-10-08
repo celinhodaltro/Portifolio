@@ -1,0 +1,106 @@
+@using Application.Main.Sources.Components.Dialogs
+
+<div id="experience" class="section-experience">
+    <MudText Class="mb-5 text-white" Align="Align.Center" Typo="Typo.h4">EXPERIÊNCIAS</MudText>
+    <MudDivider Class="mb-5" />
+
+    <MudTimeline TimelineOrientation="TimelineOrientation.Horizontal" Style="color:white; margin-bottom:70px; margin-top:70px;">
+        @foreach (var exp in Experiences.Select((value, index) => new { value, index }))
+        {
+            var align = TimelineAlign.End;
+
+            <MudTimelineItem Color="Color.Primary" Elevation="25" TimelineAlign="@align" Style="width: 100%;">
+                <MudChat ChatPosition="ChatBubblePosition.Start">
+                    <MudAvatar Size="Size.Large">
+                        <MudImage Fluid="true" Src="@exp.value.CompanyImage" />
+                    </MudAvatar>
+
+                    <MudChatBubble Class="my-1" Style="color:white; cursor: pointer;" @onclick="() => OpenModal(exp.value)">
+                        @if (!String.IsNullOrEmpty(exp.value.Company))
+                        {
+                            <div class="d-flex align-items-center mb-1">
+                                <MudIcon Size="Size.Small" Class="me-1" Color="Color.Primary" Icon="@Icons.Material.Filled.CorporateFare" />
+                                <span>@exp.value.Company</span>
+                            </div>
+                            <MudDivider />
+                        }
+
+                        <div class="d-flex align-items-center mb-1">
+                            <MudIcon Size="Size.Small" Class="me-1" Color="Color.Primary" Icon="@Icons.Material.Filled.Work" />
+                            <span>@exp.value.Title</span>
+                        </div>
+
+                        @if (!String.IsNullOrEmpty(exp.value.Detail))
+                        {
+                            <MudDivider />
+                            <div>@exp.value.Detail</div>
+                        }
+                    </MudChatBubble>
+
+                    <MudChatFooter>
+                        @exp.value.Start.ToString("dd/MM/yyyy") <MudIcon Icon="@Icons.Material.Filled.DateRange" />
+                        <MudIcon Icon="@Icons.Material.Filled.NavigateNext" />
+                        @(exp.value.End?.ToString("dd/MM/yyyy") ?? "...") <MudIcon Icon="@Icons.Material.Filled.DateRange" />
+                    </MudChatFooter>
+                </MudChat>
+            </MudTimelineItem>
+        }
+    </MudTimeline>
+</div>
+
+@code {
+    [Inject]
+    private IDialogService? dialogService { get; set; }
+
+    private List<ExperienceModel> Experiences = new()
+    {
+        new()
+        {
+            Company = "Divtech",
+            Title = "FullStack Developer",
+            CompanyImage = "img/experiences/divtech.png",
+            Start = new DateTime(2021, 5, 5),
+            End = new DateTime(2022, 5, 4),
+            Description = "Participação no desenvolvimento de aplicações com ASP.NET. Atuação na modelagem de banco de dados, desenvolvimento de funcionalidades em Angular e entrega final de sistemas em equipe.",
+            Detail = "Estagio"
+        },
+        new()
+        {
+            Company = "General Claims",
+            Title = "FullStack Developer",
+            CompanyImage = "img/experiences/gclaims.png",
+            Start = new DateTime(2022, 5, 5),
+            End = new DateTime(2024, 5, 4),
+            Description = "Desenvolvimento de APIs REST com ASP.NET, criação de interfaces web com Angular. Versionamento com Git e participação em reuniões ágeis, contribuindo com entregas em equipe multidisciplinar."
+        },
+
+         new()
+        {
+            Company = "Conder",
+            Title = "Software Analyst",
+            CompanyImage = "img/experiences/conder.png",
+            Start = new DateTime(2024, 5, 5),
+            End = DateTime.Now,
+            Description = "Desenvolvimento de soluções geoespaciais com .NET 8/9, Blazor e Angular. Implantação da cultura DevOps na Conder, promovendo automação e integração contínua. Gerenciamento de dados geográficos e manipulação de bancos PostgreSQL e Oracle. Criação de sistemas completos, desde a concepção até a entrega final."
+        },
+    };
+
+    private async Task OpenModal(ExperienceModel experience)
+    {
+        var parameters = new DialogParameters();
+        parameters.Add("_experience", experience);
+        var options = new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true, NoHeader = true };
+        await dialogService.ShowAsync<DialogExperience>("Experiencia", parameters, options);
+    }
+
+    public class ExperienceModel
+    {
+        public string Company { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public string CompanyImage { get; set; } = string.Empty;
+        public DateTime Start { get; set; }
+        public DateTime? End { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public string Detail { get; set; } = string.Empty;
+    }
+}
