@@ -2,72 +2,184 @@
     <MudText Class="mb-5 text-white" Align="Align.Center" Typo="Typo.h4">PROJETOS</MudText>
     <MudDivider Class="mb-5" />
 
-    <MudCarousel TData="ProjectModel"
-                 AutoCycle="false"
-                 ShowArrows="true"
-                 ShowIndicators="false"
-                 Class="project-carousel"
-                 Style="margin-top: 100px; margin-bottom: 100px;">
-        @foreach (var group in ProjectsList.Chunk(4))
-        {
-            <MudCarouselItem>
-                <div class="carousel-group">
-                    @foreach (var project in group)
-                    {
-                        <MudCard Class="project-card hover-elevation-8 transition"
-                                 Style="background: rgba(255,255,255,0.09);
-                                                border-radius: 16px;
-                                                backdrop-filter: blur(6px);
-                                                border: 1px solid rgba(255,255,255,0.1);">
-                            <img src="@project.Image"
-                                 style="width:100%;height:180px;object-fit:cover;
-                                                border-top-left-radius:16px;border-top-right-radius:16px;" />
+    <!-- Layout Desktop - Carousel -->
+    <div class="projects-desktop d-none d-lg-block">
+        <MudCarousel TData="ProjectModel"
+                     AutoCycle="false"
+                     ShowArrows="true"
+                     ShowIndicators="false"
+                     Class="project-carousel"
+                     Style="margin-top: 100px; margin-bottom: 100px;">
+            @foreach (var group in ProjectsList.Chunk(4))
+            {
+                <MudCarouselItem>
+                    <div class="carousel-group">
+                        @foreach (var project in group)
+                        {
+                            <MudCard Class="project-card hover-elevation-8 transition"
+                                     Style="background: rgba(255,255,255,0.09);
+                                                    border-radius: 16px;
+                                                    backdrop-filter: blur(6px);
+                                                    border: 1px solid rgba(255,255,255,0.1);">
+                                <img src="@project.Image"
+                                     style="width:100%;height:180px;object-fit:cover;
+                                                    border-top-left-radius:16px;border-top-right-radius:16px;" />
 
-                            <MudCardContent Class="text-center">
-                                <MudText Typo="Typo.h6" Class="text-white mb-2">@project.Title</MudText>
-                                <MudText Typo="Typo.body2" Class="text-white mb-3">@project.Description</MudText>
+                                <MudCardContent Class="text-center">
+                                    <MudText Typo="Typo.h6" Class="text-white mb-2">@project.Title</MudText>
+                                    <MudText Typo="Typo.body2" Class="text-white mb-3">@project.Description</MudText>
 
-                                <div class="d-flex flex-wrap gap-1 mb-3">
-                                    @foreach (var tech in project.Technologies)
-                                    {
-                                        <MudChip T="string" Size="Size.Small" Color="Color.Primary" Text="@tech" />
-                                    }
-                                </div>
+                                    <div class="d-flex flex-wrap gap-1 mb-3 justify-center">
+                                        @foreach (var tech in project.Technologies)
+                                        {
+                                            <MudChip T="string" Size="Size.Small" Color="Color.Primary" Text="@tech" />
+                                        }
+                                    </div>
 
-                                <MudCardActions Class="d-flex justify-space-between">
-                                @if (!string.IsNullOrEmpty(project.DemoUrl))
+                                    <MudCardActions Class="d-flex justify-space-between">
+                                        @if (!string.IsNullOrEmpty(project.DemoUrl))
+                                        {
+                                            <MudButton Variant="Variant.Outlined" Color="Color.Primary"
+                                                       StartIcon="@Icons.Material.Filled.Launch"
+                                                       Href="@project.DemoUrl" Target="_blank">
+                                                Demo
+                                            </MudButton>
+                                        }
+                                        @if (!string.IsNullOrEmpty(project.GitHubUrl))
+                                        {
+                                            <MudButton Variant="Variant.Outlined" Color="Color.Secondary"
+                                                       StartIcon="@Icons.Custom.Brands.GitHub"
+                                                       Href="@project.GitHubUrl" Target="_blank">
+                                                GitHub
+                                            </MudButton>
+                                        }
+                                    </MudCardActions>
+                                </MudCardContent>
+                            </MudCard>
+                        }
+                    </div>
+                </MudCarouselItem>
+            }
+        </MudCarousel>
+    </div>
+
+    <!-- Layout Tablet - Grid 2 colunas -->
+    <div class="projects-tablet d-none d-md-block d-lg-none">
+        <MudGrid Spacing="3" Class="mt-4">
+            @foreach (var project in ProjectsList)
+            {
+                <MudItem xs="12" sm="6">
+                    <MudCard Class="project-card-tablet hover-elevation-8 transition"
+                             Style="background: rgba(255,255,255,0.09);
+                                            border-radius: 16px;
+                                            backdrop-filter: blur(6px);
+                                            border: 1px solid rgba(255,255,255,0.1);
+                                            height: 100%;">
+                        <img src="@project.Image"
+                             style="width:100%;height:200px;object-fit:cover;
+                                            border-top-left-radius:16px;border-top-right-radius:16px;" />
+
+                        <MudCardContent>
+                            <MudText Typo="Typo.h6" Class="text-white mb-2">@project.Title</MudText>
+                            <MudText Typo="Typo.body2" Class="text-white mb-3">@project.Description</MudText>
+
+                            <div class="d-flex flex-wrap gap-1 mb-3">
+                                @foreach (var tech in project.Technologies)
                                 {
-                                        <MudButton Variant="Variant.Outlined" Color="Color.Primary"
-                                               StartIcon="@Icons.Material.Filled.Launch"
-                                               Href="@project.DemoUrl" Target="_blank">
-                                        Demo
-                                    </MudButton>
+                                    <MudChip T="string" Size="Size.Small" Color="Color.Primary" Text="@tech" />
                                 }
-                                @if (!string.IsNullOrEmpty(project.GitHubUrl))
-                                {
-                                    <MudButton Variant="Variant.Outlined" Color="Color.Secondary"
-                                               StartIcon="@Icons.Custom.Brands.GitHub"
-                                               Href="@project.GitHubUrl" Target="_blank">
-                                        GitHub
-                                    </MudButton>
-                                }
-                                </MudCardActions>
-                            </MudCardContent>
-                        </MudCard>
-                    }
-                </div>
-            </MudCarouselItem>
-        }
-    </MudCarousel>
+                            </div>
+                        </MudCardContent>
+
+                        <MudCardActions Class="d-flex justify-space-between pa-3">
+                            @if (!string.IsNullOrEmpty(project.DemoUrl))
+                            {
+                                <MudButton Variant="Variant.Outlined" Color="Color.Primary"
+                                           StartIcon="@Icons.Material.Filled.Launch"
+                                           Href="@project.DemoUrl" Target="_blank" Size="Size.Small">
+                                    Demo
+                                </MudButton>
+                            }
+                            @if (!string.IsNullOrEmpty(project.GitHubUrl))
+                            {
+                                <MudButton Variant="Variant.Outlined" Color="Color.Secondary"
+                                           StartIcon="@Icons.Custom.Brands.GitHub"
+                                           Href="@project.GitHubUrl" Target="_blank" Size="Size.Small">
+                                    GitHub
+                                </MudButton>
+                            }
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+    </div>
+
+    <!-- Layout Mobile - Lista vertical -->
+    <div class="projects-mobile d-block d-md-none">
+        <div class="mobile-projects-container">
+            @foreach (var project in ProjectsList)
+            {
+                <MudCard Class="project-card-mobile mb-4"
+                         Style="background: rgba(255,255,255,0.09);
+                                        border-radius: 16px;
+                                        backdrop-filter: blur(6px);
+                                        border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="@project.Image"
+                         style="width:100%;height:180px;object-fit:cover;
+                                        border-top-left-radius:16px;border-top-right-radius:16px;" />
+
+                    <MudCardContent Class="pa-3">
+                        <MudText Typo="Typo.h6" Class="text-white mb-2">@project.Title</MudText>
+                        <MudText Typo="Typo.body2" Class="text-white mb-3" Style="font-size: 0.875rem; line-height: 1.4;">
+                            @project.Description
+                        </MudText>
+
+                        <div class="d-flex flex-wrap gap-1 mb-3">
+                            @foreach (var tech in project.Technologies.Take(3)) // Limita a 3 tecnologias em mobile
+                            {
+                                <MudChip T="string" Size="Size.Small" Color="Color.Primary" Text="@tech" />
+                            }
+                            @if (project.Technologies.Length > 3)
+                            {
+                                <MudChip T="string" Size="Size.Small" Color="Color.Default" Text="@($"+{project.Technologies.Length - 3}")" />
+                            }
+                        </div>
+
+                        <div class="d-flex gap-2 flex-wrap">
+                            @if (!string.IsNullOrEmpty(project.DemoUrl))
+                            {
+                                <MudButton Variant="Variant.Outlined" Color="Color.Primary"
+                                           StartIcon="@Icons.Material.Filled.Launch"
+                                           Href="@project.DemoUrl" Target="_blank" 
+                                           Size="Size.Small" FullWidth="false">
+                                    Demo
+                                </MudButton>
+                            }
+                            @if (!string.IsNullOrEmpty(project.GitHubUrl))
+                            {
+                                <MudButton Variant="Variant.Outlined" Color="Color.Secondary"
+                                           StartIcon="@Icons.Custom.Brands.GitHub"
+                                           Href="@project.GitHubUrl" Target="_blank" 
+                                           Size="Size.Small" FullWidth="false">
+                                    GitHub
+                                </MudButton>
+                            }
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+            }
+        </div>
+    </div>
 </div>
 
 <style>
+    /* Desktop Styles */
     .mud-carousel {
         height: 500px !important;
         overflow: visible !important;
     }
 
-    /* layout padrão */
     .carousel-group {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -76,42 +188,74 @@
         align-items: stretch;
     }
 
-    /* tablet */
-    @@media (max-width: 1024px) {
-        .carousel-group
-    {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    }
-
-    /* celular */
-    @@media (max-width: 768px) {
-        .carousel-group
-
-    {
-        grid-template-columns: 1fr;
-    }
-
-    .mud-carousel {
-        height: auto !important;
-        margin-top: 40px !important;
-        margin-bottom: 40px !important;
-    }
-
-    .project-card img {
-        height: 150px !important;
-    }
-
     .project-card {
-        margin: 0 auto;
-        max-width: 90%;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+        height: 100%;
     }
 
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 212, 255, 0.2);
+    }
+
+    /* Tablet Styles */
+    .project-card-tablet {
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card-tablet:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+    }
+
+    /* Mobile Styles */
+    .mobile-projects-container {
+        padding: 0 16px;
+    }
+
+    .project-card-mobile {
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+        max-width: 100%;
+    }
+
+    .project-card-mobile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.15);
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .section-projects {
+            padding: 20px 0;
+        }
+        
+        .mobile-projects-container {
+            padding: 0 8px;
+        }
+        
+        .project-card-mobile {
+            margin-bottom: 20px;
+        }
+        
+        .project-card-mobile img {
+            height: 160px !important;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .mobile-projects-container {
+            padding: 0 4px;
+        }
+        
+        .project-card-mobile .mud-card-content {
+            padding: 12px !important;
+        }
+        
+        .project-card-mobile img {
+            height: 140px !important;
+        }
     }
 </style>
-
-
 
 @code {
     private List<ProjectModel> ProjectsList = new()
@@ -156,8 +300,10 @@
         {
             Title = "Informs Devops Center",
             Description = "Centralizador de Rotinas CI/CD do Informs (Conder).",
+            Image = "img/projects/Portifolio.png", // Placeholder image
             Technologies = new[] { "Devops", "CI/CD", "Runner"},
             DemoUrl = "",
+            GitHubUrl = ""
         }
     };
 
